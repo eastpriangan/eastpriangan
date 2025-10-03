@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="foto/logoeastpriangan.png" type="image/png">
+    <title>EAST PRIANGAN - Kemewahan di Jantung Priangan</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter & Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    
+    <!-- Alpine.js for interactivity -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Favicon (Logo EP) -->
+    <link rel="icon" href="http://googleusercontent.com/file_content/0" type="image/jpeg">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* Dark background */
+            color: #F3F4F6; /* Light text */
+        }
+        .font-serif-display {
+            font-family: 'Playfair Display', serif;
+        }
+        .hero-bg {
+            /* Ganti 'URL_GAMBAR_BACKGROUND_ANDA' dengan URL gambar background hotel yang Anda inginkan */
+            background-image: linear-gradient(to bottom, rgba(17, 24, 39, 0.8), rgba(17, 24, 39, 1)), url('foto/logoeastpriangan.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .card-bg {
+            background-color: #1F2937; /* Slightly lighter dark for cards */
+        }
+        .btn-gold {
+            background-color: #D4AF37; /* Gold color */
+            color: #111827;
+            transition: all 0.3s ease;
+        }
+        .btn-gold:hover {
+            background-color: #EACD65;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+        }
+        .section-title {
+            @apply text-4xl md:text-5xl font-serif-display font-bold text-center mb-4 text-white;
+        }
+        .section-subtitle {
+            @apply text-lg text-center text-gray-400 mb-12 max-w-2xl mx-auto;
+        }
+        .glass-effect {
+            background: rgba(31, 41, 55, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body x-data="{ 
+    isMenuOpen: false, 
+    modalImage: '', 
+    modalImages: [],
+    currentImageIndex: 0,
+    modalTitle: '',
+    zoomLevel: 1,
+    isDragging: false,
+    startX: 0,
+    startY: 0,
+    translateX: 0,
+    translateY: 0,
+    nextImage() {
+        this.currentImageIndex = (this.currentImageIndex + 1) % this.modalImages.length;
+        this.modalImage = this.modalImages[this.currentImageIndex];
+    },
+    prevImage() {
+        this.currentImageIndex = (this.currentImageIndex - 1 + this.modalImages.length) % this.modalImages.length;
+        this.modalImage = this.modalImages[this.currentImageIndex];
+    },
+    zoomIn() {
+        this.zoomLevel = Math.min(this.zoomLevel + 0.25, 3);
+    },
+    zoomOut() {
+        this.zoomLevel = Math.max(this.zoomLevel - 0.25, 0.5);
+    },
+    resetZoom() {
+        this.zoomLevel = 1;
+        this.translateX = 0;
+        this.translateY = 0;
+    },
+    startDrag(e) {
+        if (this.zoomLevel > 1) {
+            this.isDragging = true;
+            this.startX = e.clientX - this.translateX;
+            this.startY = e.clientY - this.translateY;
+        }
+    },
+    doDrag(e) {
+        if (this.isDragging) {
+            this.translateX = e.clientX - this.startX;
+            this.translateY = e.clientY - this.startY;
+        }
+    },
+    stopDrag() {
+        this.isDragging = false;
+    }
+}">
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-effect" id="navbar">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="flex items-center space-x-3">
+                <img src="http://googleusercontent.com/file_content/0" alt="Logo EAST PRIANGAN" class="h-10 w-10 object-contain" onerror="this.onerror=null;this.src='foto/logoeastpriangan.png';">
+                <span class="text-xl font-bold font-serif-display text-yellow-400">EAST PRIANGAN</span>
+            </a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8 text-white">
+                <div x-data="{ open: false, timeout: null }" 
+                     @mouseover="clearTimeout(timeout); open = true" 
+                     @mouseleave="timeout = setTimeout(() => open = false, 300)" 
+                     class="relative">
+                    <a href="#home" class="hover:text-yellow-400 transition flex items-center">
+                        Home
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </a>
+                    <div x-show="open"
+                         x-transition:enter="transition ease-out duration-200"
+                         x-transition:enter-start="opacity-0 transform -translate-y-2"
+                         x-transition:enter-end="opacity-100 transform translate-y-0"
+                         x-transition:leave="transition ease-in duration-150"
+                         x-transition:leave-start="opacity-100 transform translate-y-0"
+                         x-transition:leave-end="opacity-0 transform -translate-y-2"
+                         class="absolute left-0 mt-2 w-56 bg-gray-800 rounded-md shadow-lg z-10"
+                         style="display: none;">
+                        <a href="profile.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Profile East Priangan</a>
+                        <a href="management.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Strategi Management</a>
+                        <a href="#contact" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Kontak Reservasi</a>
+                    </div>
+                </div>
+                <div x-data="{ open: false, timeout: null }" 
+                     @mouseover="clearTimeout(timeout); open = true" 
+                     @mouseleave="timeout = setTimeout(() => open = false, 300)" 
+                     class="relative">
+                    <a href="#rooms" class="hover:text-yellow-400 transition flex items-center">
+                        Penginapan
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </a>
+                    <div x-show="open"
+                         x-transition:enter="transition ease-out duration-200"
+                         x-transition:enter-start="opacity-0 transform -translate-y-2"
+                         x-transition:enter-end="opacity-100 transform translate-y-0"
+                         x-transition:leave="transition ease-in duration-150"
+                         x-transition:leave-start="opacity-100 transform translate-y-0"
+                         x-transition:leave-end="opacity-0 transform -translate-y-2"
+                         class="absolute left-0 mt-2 w-56 bg-gray-800 rounded-md shadow-lg z-10"
+                         style="display: none;">
+                        <a href="hotel.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Hotel</a>
+                        <a href="bungalow.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Bungalow</a>
+                        <a href="villa.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Villa</a>
+                    </div>
+                </div>
+                <div x-data="{ open: false, timeout: null }" 
+                     @mouseover="clearTimeout(timeout); open = true" 
+                     @mouseleave="timeout = setTimeout(() => open = false, 300)" 
+                     class="relative">
+                    <a href="#" class="hover:text-yellow-400 transition flex items-center">
+                        Fasilitas
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </a>
+                    <div x-show="open"
+                         x-transition:enter="transition ease-out duration-200"
+                         x-transition:enter-start="opacity-0 transform -translate-y-2"
+                         x-transition:enter-end="opacity-100 transform translate-y-0"
+                         x-transition:leave="transition ease-in duration-150"
+                         x-transition:leave-start="opacity-100 transform translate-y-0"
+                         x-transition:leave-end="opacity-0 transform -translate-y-2"
+                         class="absolute left-0 mt-2 w-56 bg-gray-800 rounded-md shadow-lg z-10"
+                         style="display: none;">
+                        <a href="meeting-room.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Meeting Room</a>
+                        <a href="menu-dinner.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Menu Dinner</a>
+                        <a href="menu-alacarte.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Menu Alacarte</a>
+                    </div>
+                </div>
+                <a href="wisata.html" class="hover:text-yellow-400 transition">Wisata</a>
+                <a href="package.html" class="hover:text-yellow-400 transition">Package</a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button @click="isMenuOpen = !isMenuOpen" class="md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="isMenuOpen" @click.away="isMenuOpen = false" class="md:hidden bg-gray-800" x-transition>
+            <div x-data="{ open: false }">
+                <button @click="open = !open" class="w-full text-left block py-2 px-4 text-sm text-white hover:bg-gray-700 flex justify-between items-center">
+                    Home
+                    <svg class="w-4 h-4" :class="{'transform rotate-180': open}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div x-show="open" class="pl-4">
+                    <a href="profile.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Profile East Priangan</a>
+                    <a href="management.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Strategi Management</a>
+                    <a href="#contact" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Kontak Reservasi</a>
+                </div>
+            </div>
+            <div x-data="{ open: false }">
+                <button @click="open = !open" class="w-full text-left block py-2 px-4 text-sm text-white hover:bg-ray-700 flex justify-between items-center">
+                    Penginapan
+                    <svg class="w-4 h-4" :class="{'transform rotate-180': open}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div x-show="open" class="pl-4">
+                    <a href="#hotel" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Hotel</a>
+                    <a href="#bungalow" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Bungalow</a>
+                    <a href="#villa" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Villa</a>
+                </div>
+            </div>
+            <div x-data="{ open: false }">
+                <button @click="open = !open" class="w-full text-left block py-2 px-4 text-sm text-white hover:bg-gray-700 flex justify-between items-center">
+                    Fasilitas
+                    <svg class="w-4 h-4" :class="{'transform rotate-180': open}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div x-show="open" class="pl-4">
+                    <a href="meeting-room.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Meeting Room</a>
+                    <a href="menu-dinner.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Menu Dinner</a>
+                    <a href="menu-alacarte.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Menu Alacarte</a>
+                </div>
+            </div>
+            <a href="wisata.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Wisata</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="h-screen flex items-center justify-center text-center hero-bg">
+            <div class="container mx-auto px-6">
+                <h1 class="text-5xl md:text-7xl font-extrabold font-serif-display text-white leading-tight mb-4">Selamat Datang di</h1>
+                <h1 class="text-5xl md:text-6xl font-extrabold font-serif-display text-yellow-400 leading-tight mb-4">East Priangan Tourism & Experience</h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto">Nikmati pengalaman menginap tak terlupakan dengan kemewahan dan kenyamanan terbaik.</p>
+                <a href="http://wa.me/6288975876691" target="_blank" class="btn-gold font-bold py-4 px-8 rounded-lg text-lg inline-block">
+                    Reservasi Sekarang
+                </a>
+            </div>
+        </section>
+
+        <!-- Berita Terkini Section - SLIDER -->
+        <section id="news" class="py-20 bg-gray-900">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title text-center text-4xl md:text-4xl font-extrabold font-serif-display text-white leading-tight mb-4">Berita & Acara Terkini</h2>
+                <p class="section-subtitle text-center">Ikuti terus informasi terbaru, promosi spesial, dan acara menarik dari kami.</p>
+
+                <div x-data="{
+                        activeSlide: 1,
+                        slides: [
+                            {
+                                category: 'Festival Pangandaran',
+                                title: 'Festival Layang-Layang 2025',
+                                description: 'Langit Pangandaran akan kembali dihiasi oleh ribuan layang-layang dari berbagai negara dalam acara tahunan, Pangandaran International Kite Festival 2025.',
+                                linkText: 'Baca Selengkapnya',
+                                link: 'berita.html#malam-akustik-kolam-renang',
+                                image: 'infoberita/Pangandaran-Internasional-Kite-Festival-4.jpg'
+                            },
+                            {
+                                category: 'BERITA UTAMA',
+                                title: 'Open Tournament Voli Pantai',
+                                description: 'Saksikan keseruan turnamen voli pantai yang diikuti oleh atlet-atlet terbaik. Jangan lewatkan pertandingan sengit di tepi pantai Pangandaran.',
+                                linkText: 'Lihat Detail Acara',
+                                link: 'berita.html#open-tournament-voli-pantai',
+                                image: 'infoberita/open turnamen.jpg'
+                            }
+                        ],
+                        otherNews: [
+                            {
+                                category: 'ACARA',
+                                title: 'Malam Akustik di Tepi Kolam',
+                                description: 'Nikmati alunan musik akustik setiap Sabtu malam di area kolam renang kami sambil menyantap hidangan spesial.',
+                                linkText: 'Lihat Jadwal',
+                                link: 'berita.html#malam-akustik-kolam-renang',
+                                image: 'https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?q=80&w=870&auto=format&fit=crop'
+                            },
+                            {
+                                category: 'KULINER',
+                                title: 'Cita Rasa Baru: Menu Khas Priangan',
+                                description: 'Chef kami telah menyiapkan rangkaian menu baru yang terinspirasi dari kekayaan kuliner tanah Priangan. Wajib dicoba!',
+                                linkText: 'Cicipi Menu',
+                                link: 'resto-cafe.html',
+                                image: 'https://images.unsplash.com/photo-1551218808-94e220e084d2?q=80&w=774&auto=format&fit=crop'
+                            },
+                            {
+                                category: 'PROMO',
+                                title: 'Promo Libur Sekolah Telah Tiba!',
+                                description: 'Dapatkan penawaran menarik untuk liburan keluarga Anda. Diskon hingga 25% untuk semua tipe akomodasi.',
+                                linkText: 'Lihat Promo',
+                                link: 'berita.html#promo-libur-sekolah-2025',
+                                image: 'https://images.unsplash.com/photo-1507525428034-b723a9ce6890?q=80&w=2070&auto=format&fit=crop'
+                            }
+                        ],
+                        autoplay: null,
+                        startAutoplay() {
+                            this.autoplay = setInterval(() => {
+                                this.activeSlide = this.activeSlide === this.slides.length ? 1 : this.activeSlide + 1;
+                            }, 5000);
+                        },
+                        stopAutoplay() {
+                            clearInterval(this.autoplay);
+                        }
+                    }"
+                     class="w-full max-w-5xl mx-auto">
+
+                    <!-- Slider Container -->
+                    <div x-init="startAutoplay()"
+                         @mouseenter="stopAutoplay()"
+                         @mouseleave="startAutoplay()"
+                         class="relative">
+                        
+                        <!-- Slides -->
+                        <div class="relative h-96 md:h-[500px] rounded-lg overflow-hidden shadow-2xl">
+                            <template x-for="(slide, index) in slides" :key="index">
+                                <div x-show="activeSlide === index + 1"
+                                     x-transition:enter="transition ease-out duration-500"
+                                     x-transition:enter-start="opacity-0"
+                                     x-transition:enter-end="opacity-100"
+                                     x-transition:leave="transition ease-in duration-500"
+                                     x-transition:leave-start="opacity-100"
+                                     x-transition:leave-end="opacity-0"
+                                     class="absolute inset-0 w-full h-full">
+                                    
+                                    <img :src="slide.image" :alt="slide.title" class="w-full h-full object-cover absolute inset-0">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                                        <div class="p-6 md:p-8 text-white">
+                                            <span class="text-sm bg-yellow-400 text-black font-semibold px-2 py-1 rounded mb-2 inline-block" x-text="slide.category"></span>
+                                            <h3 class="text-2xl md:text-3xl font-bold font-serif-display mb-2" x-text="slide.title"></h3>
+                                            <p class="mb-4 text-sm hidden md:block" x-text="slide.description"></p>
+                                            <a :href="slide.link" class="text-yellow-400 hover:text-yellow-300 font-semibold mt-auto" x-text="slide.linkText + ' →'"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+
+                        <!-- Navigation Buttons -->
+                        <div class="absolute inset-0 flex items-center justify-between px-4">
+                            <button @click="activeSlide = activeSlide === 1 ? slides.length : activeSlide - 1" class="bg-black bg-opacity-50 text-white rounded-full p-2 hover:bg-opacity-75">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                            </button>
+                            <button @click="activeSlide = activeSlide === slides.length ? 1 : activeSlide + 1" class="bg-black bg-opacity-50 text-white rounded-full p-2 hover:bg-opacity-75">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </button>
+                        </div>
+
+                        <!-- Pagination Dots -->
+                        <div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
+                            <template x-for="(slide, index) in slides" :key="index">
+                                <button @click="activeSlide = index + 1" 
+                                        :class="{'bg-yellow-400': activeSlide === index + 1, 'bg-gray-400': activeSlide !== index + 1}" 
+                                        class="w-3 h-3 rounded-full hover:bg-yellow-300 transition"></button>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- Other News Grid -->
+                    <div class="mt-16">
+                        <h3 class="text-2xl md:text-3xl font-serif-display font-bold text-white mb-8 text-center">Berita Lainnya</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <template x-for="(news, index) in otherNews" :key="index">
+                                <div class="card-bg rounded-lg overflow-hidden shadow-lg flex flex-col group">
+                                    <div class="relative h-48">
+                                        <img :src="news.image" :alt="news.title" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="p-6 flex flex-col flex-grow">
+                                        <span class="text-xs bg-yellow-400 text-black font-semibold px-2 py-1 rounded mb-2 inline-block self-start" x-text="news.category"></span>
+                                        <h4 class="text-lg font-bold text-white mb-2 flex-grow" x-text="news.title"></h4>
+                                        <p class="text-gray-400 text-sm mb-4" x-text="news.description"></p>
+                                        <a :href="news.link" class="text-yellow-400 hover:text-yellow-300 font-semibold mt-auto self-start group-hover:translate-x-1 transition-transform" x-text="news.linkText + ' →'"></a>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search Section -->
+        <section id="search" class="py-16 bg-gray-800">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-serif-display font-bold text-center mb-3 text-white">Temukan Pengalaman Anda</h2>
+                <p class="text-center text-gray-400 mb-8 max-w-1xl mx-auto">Ketik kata kunci untuk menemukan informasi penginapan, wisata, paket, atau fasilitas yang Anda butuhkan.</p>
+                
+                <div x-data="{
+                        query: '',
+                        pages: [
+                            // Halaman Utama & Info
+                            { title: 'Profile East Priangan', url: 'profile.html', tags: 'tentang kami, profil, perusahaan, sejarah' },
+                            { title: 'Strategi Management', url: 'management.html', tags: 'manajemen, strategi, visi, misi' },
+                            { title: 'Kontak Reservasi', url: '#contact', tags: 'kontak, reservasi, whatsapp, telepon, hubungi kami' },
+                            { title: 'Tiket & Promo', url: 'tiket-promo.html', tags: 'tiket, promo, diskon, penawaran, harga masuk' },
+                            { title: 'Store & Merchandise', url: 'store.html', tags: 'store, toko, oleh-oleh, merchandise, suvenir' },
+                            { title: 'Kontak Darurat', url: 'kontak-darurat.html', tags: 'darurat, emergency, polisi, rumah sakit, penting' },
+
+                            // Akomodasi
+                            { title: 'Semua Hotel', url: 'hotel.html', tags: 'hotel, penginapan, kamar' },
+                            { title: 'Hotel: Grand Aquarium', url: 'hotel.html#grand-aquarium', tags: 'hotel, penginapan, kamar, grand aquarium' },
+                            { title: 'Hotel: Grand Mutiara', url: 'hotel.html#grand-mutiara', tags: 'hotel, penginapan, kamar, grand mutiara' },
+                            { title: 'Hotel: Grand Pacific', url: 'hotel.html#grand-pacific', tags: 'hotel, penginapan, kamar, grand pacific' },
+                            { title: 'Hotel: Grand Cahaya', url: 'hotel.html#grand-cahaya', tags: 'hotel, penginapan, kamar, grand cahaya' },
+                            { title: 'Hotel: Cottage Blue Orchid', url: 'hotel.html#blue-orchid', tags: 'hotel, penginapan, kamar, cottage, blue orchid' },
+                            { title: 'Hotel: Laut Biru', url: 'hotel.html#laut-biru', tags: 'hotel, penginapan, kamar, laut biru' },
+                            { title: 'Semua Bungalow', url: 'bungalow.html', tags: 'bungalow, penginapan, kamar' },
+                            { title: 'Bungalow Arileu', url: 'bungalow.html#arileu', tags: 'bungalow, penginapan, kamar, arileu' },
+                            { title: 'Bungalow Kawung KSA', url: 'bungalow.html#kawung-ksa', tags: 'bungalow, penginapan, kamar, kawung ksa' },
+                            { title: 'Bungalow Suite Arileu', url: 'bungalow.html#suite-arileu', tags: 'bungalow, penginapan, kamar, suite arileu' },
+                            { title: 'Bungalow Deluxe Suite', url: 'bungalow.html#deluxe-suite', tags: 'bungalow, penginapan, kamar, deluxe suite' },
+                            { title: 'Bungalow Suite Room', url: 'bungalow.html#suite-room', tags: 'bungalow, penginapan, kamar, suite room' },
+                            { title: 'Bungalow Suite Couple', url: 'bungalow.html#suite-couple', tags: 'bungalow, penginapan, kamar, suite couple' },
+                            { title: 'Semua Villa', url: 'villa.html', tags: 'villa, penginapan, kamar' },
+                            { title: 'Villa Sibentang', url: 'villa.html#sibentang', tags: 'villa, penginapan, kamar, sibentang, 2 bedroom' },
+
+                            // Fasilitas
+                            { title: 'Fasilitas: Meeting Room', url: 'meeting-room.html', tags: 'fasilitas, meeting room, ruang rapat, acara' },
+                            { title: 'Fasilitas: Resto & Cafe', url: 'resto-cafe.html', tags: 'fasilitas, restoran, cafe, makan, minum' },
+                            { title: 'Fasilitas: Menu Dinner', url: 'menu-dinner.html', tags: 'fasilitas, menu, dinner, makan malam' },
+                            { title: 'Fasilitas: Menu Alacarte', url: 'menu-alacarte.html', tags: 'fasilitas, menu, alacarte, makanan' },
+
+                            // Wisata
+                            { title: 'Destinasi Wisata', url: 'wisata.html', tags: 'wisata, liburan, jalan-jalan, destinasi' },
+                            { title: 'Wisata: Trip ATV Adventure', url: 'wisata.html#atv', tags: 'wisata, atv, adventure, petualangan' },
+                            { title: 'Wisata: Snorkling Pangandaran', url: 'wisata.html#snorkling', tags: 'wisata, snorkling, menyelam, pantai, laut' },
+                            { title: 'Wisata: Jetski Pangandaran', url: 'wisata.html#jetski', tags: 'wisata, jetski, air, pantai' },
+                            { title: 'Wisata: Body Rafting Green Canyon', url: 'wisata.html#green-canyon', tags: 'wisata, body rafting, green canyon, sungai' },
+                            { title: 'Wisata: Body Rafting Ciwayang', url: 'wisata.html#ciwayang', tags: 'wisata, body rafting, ciwayang, sungai' },
+                            { title: 'Wisata: Body Rafting Batu Lumpang', url: 'wisata.html#batu-lumpang', tags: 'wisata, body rafting, batu lumpang, taman' },
+
+                            // Paket
+                            { title: 'Paket Liburan & Acara', url: 'package.html', tags: 'paket, package, gathering, sekolah, acara' },
+                            { title: 'Paket: Package Rate', url: 'package.html#rate', tags: 'paket, rate, harga, liburan' },
+                            { title: 'Paket: Package School', url: 'package.html#school', tags: 'paket, sekolah, study tour, liburan sekolah' },
+                            { title: 'Paket: Family Gathering', url: 'package.html#family-gathering', tags: 'paket, keluarga, family gathering, acara' }
+                        ],
+                        get filteredPages() {
+                            if (this.query.length < 2) return [];
+                            return this.pages.filter(
+                                page => page.title.toLowerCase().includes(this.query.toLowerCase()) || page.tags.toLowerCase().includes(this.query.toLowerCase())
+                            );
+                        },
+                        showResults: false
+                    }" 
+                     @click.away="showResults = false"
+                     class="max-w-2xl mx-auto relative">
+                    
+                    <div class="relative">
+                        <input type="text" 
+                               x-model="query"
+                               @focus="showResults = true"
+                               @input.debounce.300ms="showResults = true"
+                               placeholder="Cari hotel, wisata, paket..." 
+                               class="w-full py-4 px-6 pr-12 text-lg bg-gray-700 text-white border-2 border-gray-600 rounded-full focus:outline-none focus:border-yellow-400 transition duration-300">
+                        <button @click="if(filteredPages.length > 0) window.location.href = filteredPages[0].url" class="absolute top-1/2 right-4 transform -translate-y-1/2 text-white hover:text-yellow-400">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        </button>
+                    </div>
+
+                    <div x-show="showResults && filteredPages.length > 0"
+                         x-transition
+                         class="absolute top-full left-0 right-0 mt-2 bg-gray-700 rounded-lg shadow-lg overflow-hidden z-10"
+                         style="display: none;">
+                        <ul>
+                            <template x-for="page in filteredPages" :key="page.url">
+                                <li>
+                                    <a :href="page.url" class="block w-full text-left px-6 py-3 text-white hover:bg-gray-600 transition duration-150" @click="showResults = false">
+                                        <span x-text="page.title"></span>
+                                    </a>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search Info Section -->
+        <section id="search-info" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-5xl font-serif-display font-bold text-center mb-3 text-white">Cari Apa di East Priangan?</h2>
+                <p class="text-center section-subtitle">Temukan semua yang Anda butuhkan untuk merencanakan liburan sempurna Anda bersama kami.</p>
+
+                <!-- Category Icons -->
+                <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-5 gap-8 text-center">
+                    <!-- Informasi Tiket Promo -->
+                    <a href="tiket-promo.html" class="group">
+                        <div class="bg-gray-800 rounded-full w-28 h-28 mx-auto flex items-center justify-center mb-4 border-2 border-gray-700 group-hover:border-yellow-400 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                            <svg class="w-14 h-14 text-yellow-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl text-white group-hover:text-yellow-400 transition">Tiket Masuk</h3>
+                    </a>
+                    <!-- Berita Terkini -->
+                    <a href="berita.html" class="group">
+                        <div class="bg-gray-800 rounded-full w-28 h-28 mx-auto flex items-center justify-center mb-4 border-2 border-gray-700 group-hover:border-yellow-400 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                            <svg class="w-14 h-14 text-yellow-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl text-white group-hover:text-yellow-400 transition">Berita Terkini</h3>
+                    </a>
+                    <!-- Fasilitas Umum -->
+                    <a href="store.html" class="group">
+                        <div class="bg-gray-800 rounded-full w-28 h-28 mx-auto flex items-center justify-center mb-4 border-2 border-gray-700 group-hover:border-yellow-400 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                            <svg class="w-14 h-14 text-yellow-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5A.75.75 0 0114.25 12h.01a.75.75 0 01.75.75v7.5m-4.5 0v-7.5A.75.75 0 0110.5 12h.01a.75.75 0 01.75.75v7.5m-4.5 0v-7.5A.75.75 0 016.75 12h.01a.75.75 0 01.75.75v7.5m-4.5 0V10.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 10.5v10.5m-18 0h18M12 12.75h.008v.008H12v-.008z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl text-white group-hover:text-yellow-400 transition">Fasilitas Umum</h3>
+                    </a>
+                    <!-- Restoran dan Cafe -->
+                    <a href="resto-cafe.html" class="group">
+                        <div class="bg-gray-800 rounded-full w-28 h-28 mx-auto flex items-center justify-center mb-4 border-2 border-gray-700 group-hover:border-yellow-400 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                            <svg class="w-14 h-14 text-yellow-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.62a8.983 8.983 0 013.362-3.797z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214C14.252 4.247 12.688 3.5 10.5 3.5c-2.188 0-3.752.747-4.862 1.714M15.362 5.214A3.375 3.375 0 0016.5 7.5c0 1.864-1.512 3.375-3.375 3.375S9.75 9.364 9.75 7.5c0-1.02.47-1.933 1.215-2.533" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl text-white group-hover:text-yellow-400 transition">Restoran & Cafe</h3>
+                    </a>
+                    <!-- Kontak Darurat -->
+                    <a href="kontak-darurat.html" class="group">
+                        <div class="bg-gray-800 rounded-full w-28 h-28 mx-auto flex items-center justify-center mb-4 border-2 border-gray-700 group-hover:border-yellow-400 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                            <svg class="w-14 h-14 text-yellow-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl text-white group-hover:text-yellow-400 transition">Kontak Darurat</h3>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-20">
+            <div class="container mx-auto px-6 text-center">
+                 <h2 class="text-4xl md:text-5xl font-serif-display font-bold text-center mb-4 text-white">Hubungi Kami!</h2>
+                 <p class="section-subtitle">Jangan ragu untuk menghubungi kami untuk informasi lebih lanjut atau melakukan reservasi.</p>
+                 <a href="http://wa.me/6288975876691" target="_blank" class="btn-gold font-bold py-4 px-10 rounded-lg text-xl inline-flex items-center space-x-3">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.803 6.166l-1.225 4.485 4.575-1.196z"/></svg>
+                    <span>Chat via WhatsApp</span>
+                 </a>
+            </div>
+        </section>
+
+        <!-- Location Section -->
+        <section id="location" class="py-20 bg-gray-900">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title">Lokasi Kami</h2>
+                <p class="section-subtitle">Temukan kami dengan mudah. Kami berlokasi strategis untuk kenyamanan Anda.</p>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <!-- Google Maps Embed -->
+                    <div class="rounded-lg overflow-hidden shadow-lg h-96">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.921701048945!2d108.6482365!3d-7.6915523!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6598421cf1b971%3A0x75f04d4860e81332!2sHotel%20Malabar!5e0!3m2!1sid!2sid!4v1758394361667!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                    
+                    <!-- Denah Lokasi -->
+                    <div class="rounded-lg overflow-hidden shadow-lg h-96">
+                        <img src="foto/Denah KSA_pages-to-jpg-0001.jpg" alt="Denah Lokasi East Priangan" class="w-full h-full object-contain bg-white p-4 cursor-pointer"
+                             @click="modalImages = ['foto/Denah KSA_pages-to-jpg-0001.jpg']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Denah Lokasi East Priangan'">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-700 py-8">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="https://www.instagram.com/leniwiraatmadja/" target="_blank" class="text-gray-400 hover:text-yellow-400 transition">
+                    <img src="foto/logofacebook.jpg" alt="Instagram" class="w-6 h-6">
+                </a>
+                <a href="https://www.instagram.com/leniwiraatmadja/" target="_blank" class="text-gray-400 hover:text-yellow-400 transition">
+                    <img src="foto/logoinstagram.jpg" alt="Instagram" class="w-6 h-6">
+                </a>
+            </div>
+            <p class="text-yellow-400">&copy; <span id="year"></span> EAST PRIANGAN. All Rights Reserved.</p>
+            <p class="text-sm mt-2">Design By NA-78</p>
+        </div>
+    </footer>
+
+    <!-- Image Modal -->
+    <div x-show="modalImage" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4" style="display: none;">
+        <div @click.away="modalImage = ''; modalImages = []; resetZoom()" class="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-full overflow-hidden relative">
+            <div class="p-4 border-b flex justify-between items-center">
+                <h3 class="text-xl font-bold text-gray-800" x-text="modalTitle"></h3>
+                <div class="flex items-center space-x-2">
+                    <!-- Zoom Controls -->
+                    <button @click="zoomOut()" class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-2 px-3 rounded">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/>
+                        </svg>
+                    </button>
+                    <button @click="zoomIn()" class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-2 px-3 rounded">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                        </svg>
+                    </button>
+                    <button @click="resetZoom()" class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-2 px-3 rounded text-sm">Reset</button>
+                    <button @click="modalImage = ''; modalImages = []; resetZoom()" class="text-gray-500 hover:text-gray-800 ml-2">&times;</button>
+                </div>
+            </div>
+            <div class="p-4 relative overflow-auto" style="max-height: 85vh;">
+                <div class="flex items-center justify-center">
+                    <img :src="modalImage" 
+                         alt="Detail Gambar" 
+                         class="rounded-md cursor-move transition-transform duration-150 max-w-full h-auto object-contain"
+                         :style="'transform: scale(' + zoomLevel + ') translate(' + translateX/zoomLevel + 'px, ' + translateY/zoomLevel + 'px)'"
+                         @mousedown="startDrag"
+                         @mousemove="doDrag"
+                         @mouseup="stopDrag"
+                         @mouseleave="stopDrag"
+                         draggable="false">
+                
+                <!-- Navigation Buttons (only show if there are multiple images) -->
+                <template x-if="modalImages.length > 1">
+                    <div class="absolute inset-y-0 left-0 right-0 flex justify-between items-center px-4">
+                        <button @click="prevImage()" class="bg-black bg-opacity-50 text-white rounded-full p-2 hover:bg-opacity-75 transition-opacity">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                            </svg>
+                        </button>
+                        <button @click="nextImage()" class="bg-black bg-opacity-50 text-white rounded-full p-2 hover:bg-opacity-75 transition-opacity">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </div>
+                </template>
+                
+                <!-- Image Counter -->
+                <template x-if="modalImages.length > 1">
+                    <div class="absolute bottom-6 left-0 right-0 text-center">
+                        <span class="bg-black bg-opacity-50 text-white px-2 py-1 rounded-full text-sm">
+                            <span x-text="currentImageIndex + 1"></span>/<span x-text="modalImages.length"></span>
+                        </span>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Script untuk tahun di footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Script untuk mengubah background header saat scroll
+        const navbar = document.getElementById('navbar');
+        window.onscroll = () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-opacity-90');
+            } else {
+                navbar.classList.remove('bg-opacity-90');
+            }
+        };
+    </script>
+
+</body>
+</html>

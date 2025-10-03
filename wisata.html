@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wisata Sekitar - EAST PRIANGAN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="icon" href="foto/logoeastpriangan.png" type="image/png">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #111827; color: #F3F4F6; }
+        .font-serif-display { font-family: 'Playfair Display', serif; }
+        .glass-effect { background: rgba(31, 41, 55, 0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .card-bg { background-color: #1F2937; }
+        .section-title { @apply text-5xl md:text-6xl font-serif-display font-bold text-center mb-4 text-white; }
+        .section-subtitle { @apply text-lg text-center text-gray-400 mb-12 max-w-2xl mx-auto; }
+    </style>
+</head>
+<body x-data="{ isMenuOpen: false, modalImage: null, modalTitle: '', modalImages: [], currentImageIndex: 0, scale: 1, posX: 0, posY: 0 }">
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-effect" id="navbar">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3">
+                <img src="foto/logoeastpriangan.png" alt="Logo EAST PRIANGAN" class="h-10 w-10 object-contain">
+                <span class="text-xl font-bold font-serif-display text-yellow-400">EAST PRIANGAN</span>
+            </a>
+            <nav class="hidden md:flex space-x-8 text-white">
+                <div x-data="{ open: false, timeout: null }" @mouseover="clearTimeout(timeout); open = true" @mouseleave="timeout = setTimeout(() => open = false, 300)" class="relative">
+                    <a href="index.html" class="hover:text-yellow-400 transition flex items-center">
+                        Home
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </a>
+                    <div x-show="open" class="absolute left-0 mt-2 w-56 bg-gray-800 rounded-md shadow-lg z-10" style="display: none;">
+                        <a href="profile.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Profile East Priangan</a>
+                        <a href="management.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Strategi Management</a>
+                        <a href="index.html#contact" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Kontak Reservasi</a>
+                    </div>
+                </div>
+                <div x-data="{ open: false, timeout: null }" @mouseover="clearTimeout(timeout); open = true" @mouseleave="timeout = setTimeout(() => open = false, 300)" class="relative">
+                    <a href="#" class="hover:text-yellow-400 transition flex items-center">
+                        Penginapan
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </a>
+                    <div x-show="open" class="absolute left-0 mt-2 w-56 bg-gray-800 rounded-md shadow-lg z-10" style="display: none;">
+                        <a href="hotel.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Hotel</a>
+                        <a href="bungalow.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Bungalow</a>
+                        <a href="villa.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Villa</a>
+                    </div>
+                </div>
+                <div x-data="{ open: false, timeout: null }" 
+                     @mouseover="clearTimeout(timeout); open = true" 
+                     @mouseleave="timeout = setTimeout(() => open = false, 300)" 
+                     class="relative">
+                    <a href="#" class="hover:text-yellow-400 transition flex items-center">
+                        Fasilitas
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </a>
+                    <div x-show="open"
+                         x-transition:enter="transition ease-out duration-200"
+                         x-transition:enter-start="opacity-0 transform -translate-y-2"
+                         x-transition:enter-end="opacity-100 transform translate-y-0"
+                         x-transition:leave="transition ease-in duration-150"
+                         x-transition:leave-start="opacity-100 transform translate-y-0"
+                         x-transition:leave-end="opacity-0 transform -translate-y-2"
+                         class="absolute left-0 mt-2 w-56 bg-gray-800 rounded-md shadow-lg z-10"
+                         style="display: none;">
+                        <a href="meeting-room.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Meeting Room</a>
+                        <a href="menu-dinner.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Menu Dinner</a>
+                        <a href="menu-alacarte.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Menu Alacarte</a>
+                    </div>
+                </div>
+                <a href="wisata.html" class="hover:text-yellow-400 transition">Wisata</a>
+                <a href="package.html" class="hover:text-yellow-400 transition">Package</a>
+            </nav>
+            <button @click="isMenuOpen = !isMenuOpen" class="md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <div x-show="isMenuOpen" class="md:hidden bg-gray-800">
+             <div x-data="{ open: false }">
+                <button @click="open = !open" class="w-full text-left block py-2 px-4 text-sm text-white hover:bg-gray-700 flex justify-between items-center">
+                    Home
+                    <svg class="w-4 h-4" :class="{'transform rotate-180': open}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div x-show="open" class="pl-4">
+                    <a href="profile.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Profile East Priangan</a>
+                    <a href="management.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Strategi Management</a>
+                    <a href="index.html#contact" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Kontak Reservasi</a>
+                </div>
+            </div>
+            <div x-data="{ open: false }">
+                <button @click="open = !open" class="w-full text-left block py-2 px-4 text-sm text-white hover:bg-gray-700 flex justify-between items-center">
+                    Penginapan
+                    <svg class="w-4 h-4" :class="{'transform rotate-180': open}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div x-show="open" class="pl-4">
+                    <a href="hotel.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Hotel</a>
+                    <a href="bungalow.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Bungalow</a>
+                    <a href="villa.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Villa</a>
+                </div>
+            </div>
+            <div x-data="{ open: false }">
+                <button @click="open = !open" class="w-full text-left block py-2 px-4 text-sm text-white hover:bg-gray-700 flex justify-between items-center">
+                    Fasilitas
+                    <svg class="w-4 h-4" :class="{'transform rotate-180': open}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div x-show="open" class="pl-4">
+                    <a href="meeting-room.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Meeting Room</a>
+                    <a href="menu-dinner.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Menu Dinner</a>
+                    <a href="menu-alacarte.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Menu Alacarte</a>
+                </div>
+            </div>
+            <a href="wisata.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Wisata</a>
+            <a href="package.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Package</a>
+        </div>
+    </header>
+
+    <main class="pt-20">
+        <section id="hotel" class="py-20">
+            <div class="container mx-auto px-6">
+                <h1 class="section-title text-center text-4xl font-bold font-serif-display mb-2 text-white">Destinasi Wisata Populer Pangandaran</h1>
+                <p class="section-subtitle text-center text-gray-400 mb-4 max-w-1xl mx-auto">Jelajahi keindahan alam dan budaya di sekitar Priangan Timur. Berikut adalah beberapa rekomendasi tempat wisata yang wajib Anda kunjungi.</p>
+                
+                <div class="grid grid-cols-8 md:grid-cols-30 lg:grid-cols-3 gap-16">
+                    <!-- Wisata 1: Trip ATV Adventure -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="wisata/paketwisata-atv-trip-adventure-42.jpg" alt="Trip ATV Adventure" class="w-full h-100 object-cover cursor-pointer"
+                             @click="modalImages = ['wisata/paketwisata-atv-trip-adventure-42.jpg']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Trip ATV Adventure'">
+                        <div class="p-4">
+                            <h3 class="text-1xl font-bold font-serif-display mb-2 text-white">Trip ATV Adventure</h3>
+                            <p class="text-1xl text-justify text-gray-400 mb-15">Trip ATVA dventure ini membawa wisatawan menelusuri Pangandaran menggunakan ATV ke tempat-tempat dengan Trek ATV menarik, yang tidak hanya dijalan Pangandaran untuk belanja oleh-oleh aja nih.</p>
+                            <a href="https://maps.app.goo.gl/gJd9cgzrXsuVcQZt5" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Maps Detail &rarr;</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Wisata 2: Snorkling Pangandaran -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="wisata/paketwisata-paket-snorkling-pangandaran-23.jpg" alt="Snorkling Pangandaran" class="w-full h-100 object-cover cursor-pointer"
+                             @click="modalImages = ['wisata/paketwisata-paket-snorkling-pangandaran-23.jpg']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Snorkling Pangandaran'">
+                        <div class="p-4">
+                            <h3 class="text-1xl font-bold font-serif-display mb-2 text-white">Snorkling Pangandaran</h3>
+                            <p class="text-1xl text-justify text-gray-400 mb-15">Snorkling di Pangandaran wajib di jadikan pilihan ketika berlibur ke Pangandaran, dengan spot-spot lokasi terumbu karang dan ikan-ikan yang menarik menjadi pengalaman yang takan terlupakan. Dengan di pandu oleh instruktur dan dengan menaiki perahu menuju spot yang telah di tentukan dengan durasi kurang lebih 1 jam, anda dapat memberi makan ikan dengan remah roti serta diabadikan dengan kamera aksi underwater yang akan di jadikan kenang-kenangan. Paket wisata ini akan membawa anda menikmati indah nya panorama bawah laut Pantai Timur Pangandaran.</p>
+                            <a href="https://maps.app.goo.gl/ze4xLypL3TPGxeLc7" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Maps Detail &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Wisata 3: Jetski Pangandaran -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="wisata/jetski pangandaran.png" alt="Jetski Pangandaran" class="w-full h-100 object-cover cursor-pointer"
+                             @click="modalImages = ['wisata/jetski pangandaran.png']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Jetski Pangandaran'">
+                        <div class="p-4">
+                            <h3 class="text-1xl font-bold font-serif-display mb-2 text-white">Jetski Pangandaran</h3>
+                            <p class="text-1xl text-justify text-gray-400 mb-15">Trip Adventure ini di awal akan dipandu teknis menjalankan Jetski, kemudian bermanuver menyusuri pantai Timur Pangandaran sesuai durasi yang di pilih, serta yang ingin diabadikan disediakan jasa kamera Drone.</p>
+                            <a href="https://maps.app.goo.gl/qkBqNzXxq5mMtE4r8" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Maps Detail &rarr;</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Wisata 4: Green Canyon -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="wisata/green-canyon-pangandaran_169.jpeg" alt="Green Canyon" class="w-full h-100 object-cover cursor-pointer"
+                             @click="modalImages = ['wisata/green-canyon-pangandaran_169.jpeg']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Body Rafting Green Canyon'">
+                        <div class="p-4">
+                            <h3 class="text-1xl font-bold font-serif-display mb-2 text-white">Body Rafting Green Canyon</h3>
+                            <p class="text-1xl text-justify text-gray-400 mb-15">Nikmati petualangan seru menyusuri sungai di Green Canyon yang mempesona, terkenal dengan airnya yang jernih berwarna hijau toska dan tebing batu megah. Wisata ke destinasi unggulan di Pangandaran dengan aktifitas body rafting adalah wisata yang paling banyak diminati di tahun 2018, kami menggabungkan semi body rafting di Green Canyon yang dapat dilakukan dalam seharian penuh, yang menarik untuk dicoba tentunya, dan dengan biaya yang tidak membuat kanton bolong, hehehe</p>
+                            <a href="https://maps.app.goo.gl/FihF2MQEQdLd5vAa7" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Maps Detail &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Wisata 5: Body Rafting Ciwayang -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="wisata/ciwayang.jpg" alt="Body Rafting Ciwayang" class="w-full h-100 object-cover cursor-pointer"
+                             @click="modalImages = ['wisata/ciwayang.jpg']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Body Rafting Ciwayang'">
+                        <div class="p-4">
+                            <h3 class="text-1xl font-bold font-serif-display mb-2 text-white">Body Rafting Ciwayang</h3>
+                            <p class="text-1xl text-justify text-gray-400 mb-15">Ciwayang adalah hulu sungai Green Canyon, sama seperti Green Canyon terdapat relieve bebatuan di kanan kiri sungai yang eksotis, terdapat beberapa spot jumping andalan yang akan menguji andrenalin, dan menyusuri sungai Ciwayang selama kurang lebih 2,5 jam dengan dipandu oleh pemandu yang sudah berpengalaman.</p>
+                            <a href="https://maps.app.goo.gl/omvFESqSZhU25BeV7" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Maps Detail &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Wisata 6: Body Rafting Batu lumpang Garden -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="wisata/batu-lumpang.jpg" alt="Body Rafting Batu lumpang Garden" class="w-full h-100 object-cover cursor-pointer"
+                             @click="modalImages = ['wisata/batu-lumpang.jpg']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Body Rafting Batu lumpang Garden'">
+                        <div class="p-4">
+                            <h3 class="text-1xl font-bold font-serif-display mb-2 text-white">Body Rafting Batu Lumpang Garden</h3>
+                            <p class="text-1xl text-justify text-gray-400 mb-15">Body Rafting Batu lumpang Garden sensasi mengarungi hulu sungai Green Canyon, dengan relieve bebatuan yang alami, dan spot jumping serta photostop dengan mencoba kayaking dan merasakan segarnya air dari mata air alami.</p>
+                            <a href="https://maps.app.goo.gl/zY1bqEcpkGCgEzBp6" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Maps Detail &rarr;</a>
+                        </div>
+                    </div>
+
+                     <!-- Wisata 7: Body Rafting Citumang -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="wisata/citumang.jpg" alt="Body Rafting Citumang" class="w-full h-100 object-cover cursor-pointer"
+                             @click="modalImages = ['wisata/citumang.jpg']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Body Rafting Citumang'">
+                        <div class="p-4">
+                            <h3 class="text-1xl font-bold font-serif-display mb-2 text-white">Body Rafting Citumang</h3>
+                            <p class="text-1xl text-justify text-gray-400 mb-15">Citumang Body rafting menawarkan petualangan seru yang menyatu dengan keindahan alam yang masih asri dan hijau. Terletak di tengah kawasan hutan alami, wisata ini menyuguhkan pengalaman tak terlupakan bagi pencinta adrenalin dan ketenangan alam sekaligus.</p>
+                            <a href="https://maps.app.goo.gl/Fp7V5QA5RqTgRPSh6" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Maps Detail &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Wisata 8: Santirah river tubing -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="wisata/santirah.jpg" alt="Body Rafting Citumang" class="w-full h-100 object-cover cursor-pointer"
+                             @click="modalImages = ['wisata/santirah.jpg']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Santirah river tubing'">
+                        <div class="p-4">
+                            <h3 class="text-1xl font-bold font-serif-display mb-2 text-white">Santirah River Tubing</h3>
+                            <p class="text-1xl text-justify text-gray-400 mb-15">Santirah river tubing Pangandaran, yaitu atraksi wisata adventure menelusuri keindahan sungai Santirah Pangandaran menggunakan ban dalam di sungai berarus sedang. Objek wisata ini tengah populer dikalangan para wisatawan yang berlibur ke Pangandaran selain dikenal dengan sungai jernih juga pemandangan alamnya yang menakjubkan.</p>
+                            <a href="https://maps.app.goo.gl/L5YSiSDyQv1QAWH99" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Maps Detail &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Wisata 9: Wisata Watersport -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="wisata/watersport-pangandaran-22-1.jpg" alt="Body Rafting Citumang" class="w-full h-100 object-cover cursor-pointer"
+                             @click="modalImages = ['wisata/watersport-pangandaran-22-1.jpg']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Wisata Watersport'">
+                        <div class="p-4">
+                            <h3 class="text-1xl font-bold font-serif-display mb-2 text-white">Wisata Watersport</h3>
+                            <p class="text-1xl text-justify text-gray-400 mb-15">Wisata Watersport Pangandaran merupakan wisata olah raga air Tiga permainan dalam satu paket dengan pilihan permainan Bannana Boat plus 2 pilihan wahana permainan lainya diantaranya Uvo Boat, Big Mable dan Aqua Glade.</p>
+                            <a href="https://maps.app.goo.gl/2MArB6Ur2etFSWAT8" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Maps Detail &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Wisata 10: Paddle Pangandaran -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="wisata/paddle.jpg" alt="Body Rafting Citumang" class="w-full h-100 object-cover cursor-pointer"
+                             @click="modalImages = ['wisata/paddle.jpg']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Paddle Pangandaran'">
+                        <div class="p-4">
+                            <h3 class="text-1xl font-bold font-serif-display mb-2 text-white">Paddle Pangandaran</h3>
+                            <p class="text-1xl text-justify text-gray-400 mb-15">Eksplorasi Pantai Barat & Pasir Putih dengan Sensasi Seru di Atas Air! Ingin pengalaman liburan yang anti-mainstream dan tetap healing? Paket Paddle di Pangandaran ini adalah jawaban buat kamu yang haus petualangan namun tetap ingin menikmati keindahan alam dari sudut yang berbeda.</p>
+                            <a href="https://maps.app.goo.gl/VKShNMeYwY8NV1uXA" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Maps Detail &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Wisata 11: Fishing Trip -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="wisata/paketwisata-fishing-trip-36.jpg" alt="Body Rafting Citumang" class="w-full h-100 object-cover cursor-pointer"
+                             @click="modalImages = ['wisata/paketwisata-fishing-trip-36.jpg']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Fishing Trip'">
+                        <div class="p-4">
+                            <h3 class="text-1xl font-bold font-serif-display mb-2 text-white">Fishing Trip</h3>
+                            <p class="text-1xl text-justify text-gray-400 mb-15">Fishing Trip yaitu trip memancing di perairan Pangandaran, terutama di sepanjang pantai Pangandaran dengan spot-spot andalan tentunya, cocok untuk wisatawan maupun para angler yang mau mancing nya lebih seru.</p>
+                            <a href="https://maps.app.goo.gl/kfv2KcAFXoWaKST5A" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Maps Detail &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Wisata 12: Tour Desa Wisata Budaya Margacinta -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="wisata/margacinta/paketwisata-tour-desa-wisata-margacinta-21-1.jpg" alt="Body Rafting Citumang" class="w-full h-100 object-cover cursor-pointer"
+                             @click="modalImages = ['wisata/margacinta/paketwisata-tour-desa-wisata-margacinta-21-1.jpg','wisata/margacinta/paketwisata-tour-desa-wisata-margacinta-21-2.jpg','wisata/margacinta/paketwisata-tour-desa-wisata-margacinta-21-5.jpg','wisata/margacinta/paketwisata-tour-desa-wisata-budaya-margacinta-21-3.jpg','wisata/margacinta/destinasi-margacinta-7-l.jpg']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Tour Desa Wisata Budaya Margacinta'">
+                        <div class="p-4">
+                            <h3 class="text-1xl font-bold font-serif-display mb-2 text-white">Tour Desa Wisata Budaya Margacinta</h3>
+                            <p class="text-1xl text-justify text-gray-400 mb-15">Tour Desa Wisata Budaya Margacinta merupakan paket wisata menjelajah desa dan sungai atau body rafting dan river tubing dengan pilihan kunjungan rafting ke Dusun Margacinta tepatnya di sungai Pangancraan. Dengan keunikan dan keidahan objek wisata rafting tersebut anda akan di bawa berpetualang dan menikmati asrinya dan serunya bermain air di tempat yang alami dengan dan berselfie di Jembatan Pongpet dan menikmati sajian seni budaya di Kampung Badud.</p>
+                            <a href="https://maps.app.goo.gl/48UHt1jX9Ab4mnka6" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Maps Detail &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <main class="pt-20">
+        <section id="hotel" class="py-20">
+            <div class="container mx-auto px-6">
+                <h1 class="section-title text-center text-4xl font-bold font-serif-display mb-2 text-white">Destinasi Wisata Populer Garut</h1>
+                <p class="section-subtitle text-center text-gray-400 mb-4 max-w-1xl mx-auto">Jelajahi keindahan alam dan budaya di sekitar Priangan Timur. Berikut adalah beberapa rekomendasi tempat wisata yang wajib Anda kunjungi.</p>
+                
+                <div class="grid grid-cols-8 md:grid-cols-30 lg:grid-cols-3 gap-16">
+                    <!-- Wisata 1: Curug Orok -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="wisata/garut/Curug-Orok-1.jpg" alt="Trip ATV Adventure" class="w-full h-100 object-cover cursor-pointer"
+                             @click="modalImages = ['wisata/garut/Curug-Orok-1.jpg']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Curug Orok'">
+                        <div class="p-4">
+                            <h3 class="text-1xl font-bold font-serif-display mb-2 text-white">Curug Orok</h3>
+                            <p class="text-1xl text-justify text-gray-400 mb-15">Curug Orok adalah sebuah air terjun menawan dengan ketinggian sekitar 45 meter yang terletak di lereng Gunung Papandayan, tepatnya di Desa Cikandang, Kecamatan Cikajang, Kabupaten Garut, Jawa Barat. Air terjun ini sudah lama menjadi salah satu destinasi favorit wisata alam di Garut, terutama bagi wisatawan yang ingin menikmati suasana pegunungan yang sejuk dan alami.</p>
+                            <a href="https://maps.app.goo.gl/dYudPZozcMyVA1Zi9" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Maps Detail &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Wisata 2: Talaga Bodas -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="wisata/garut/talaga bodas.jpg" alt="Trip ATV Adventure" class="w-full h-100 object-cover cursor-pointer"
+                             @click="modalImages = ['wisata/garut/talaga bodas.jpg']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Talaga Bodas'">
+                        <div class="p-4">
+                            <h3 class="text-1xl font-bold font-serif-display mb-2 text-white">Talaga Bodas</h3>
+                            <p class="text-1xl text-justify text-gray-400 mb-15">Danau putih alami di Wanaraja, Garut, bekas kawah gunung yang mirip Kawah Putih di Ciwidey. Tapi wisata Garut ini lebih sepi, lebih syahdu, dan pastinya lebih adem.</p>
+                            <a href="https://maps.app.goo.gl/7H6eq74XDqp2caR8A" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Maps Detail &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Wisata 3: Gunung Papandayan -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="wisata/garut/Papandayan-2-1024x683.jpg" alt="Trip ATV Adventure" class="w-full h-100 object-cover cursor-pointer"
+                             @click="modalImages = ['wisata/garut/Papandayan-2-1024x683.jpg']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Gunung Papandayan'">
+                        <div class="p-4">
+                            <h3 class="text-1xl font-bold font-serif-display mb-2 text-white">Gunung Papandayan</h3>
+                            <p class="text-1xl text-justify text-gray-400 mb-15">Berlokasi di Cisurupan, Garut, Buat yang suka naik gunung tapi nggak mau terlalu ekstrem, ini pilihan yang cocok. Trekking santai sambil nikmatin hutan mati dan kawah belerang yang instagramable.</p>
+                            <a href="https://maps.app.goo.gl/o6xi5YLQ8JA5DzgE8" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Maps Detail &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Wisata 4: Pantai Santolo -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="wisata/garut/Pantai-Santolo-Destinasi-Wisata.jpg" alt="Trip ATV Adventure" class="w-full h-100 object-cover cursor-pointer"
+                             @click="modalImages = ['wisata/garut/Pantai-Santolo-Destinasi-Wisata.jpg']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Pantai Santolo'">
+                        <div class="p-4">
+                            <h3 class="text-1xl font-bold font-serif-display mb-2 text-white">Pantai Santolo</h3>
+                            <p class="text-1xl text-justify text-gray-400 mb-15">Pantai legendaris di Cikelet, Garut Selatan, ini cocok buat nikmatin sunset dan seafood. Ada jembatan gantung juga buat nyebrang ke pulau kecil di seberangnya.</p>
+                            <a href="https://maps.app.goo.gl/zDiYEAPp3Jz9qMFK8" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Maps Detail &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Wisata 5: Pantai Sayang Heulang -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="wisata/garut/pantai-sayang-heulang_Trgylv9wP7.jpg" alt="Trip ATV Adventure" class="w-full h-100 object-cover cursor-pointer"
+                             @click="modalImages = ['wisata/garut/pantai-sayang-heulang_Trgylv9wP7.jpg']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Pantai Sayang Heulang'">
+                        <div class="p-4">
+                            <h3 class="text-1xl font-bold font-serif-display mb-2 text-white">Pantai Sayang Heulang</h3>
+                            <p class="text-1xl text-justify text-gray-400 mb-15">Beralamat di Pameungpeuk, Garut Selatan, view-nya bikin mellow beneran. Nama boleh mellow, tapi pantai landainya cocok buat main air atau sekadar nyender di bawah pohon sambil dengerin suara ombak.</p>
+                            <a href="https://maps.app.goo.gl/J6khttPSZVZEfvA37" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Maps Detail &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Wisata 6: Pantai Ranca Buaya -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="wisata/garut/rancabuaya.jpg" alt="Trip ATV Adventure" class="w-full h-100 object-cover cursor-pointer"
+                             @click="modalImages = ['wisata/garut/rancabuaya.jpg']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Pantai Ranca Buaya'">
+                        <div class="p-4">
+                            <h3 class="text-1xl font-bold font-serif-display mb-2 text-white">Pantai Ranca Buaya</h3>
+                            <p class="text-1xl text-justify text-gray-400 mb-15">Pantai ini punya pasir yang bersih dan air laut yang masih jernih dan tampak biru, terutama saat cuaca cerah. Ada spot foto paling populer di pantai ini, yakni bebatuan karang yang ditumbuhi lumut.</p>
+                            <a href="https://maps.app.goo.gl/GggLX8DEpy7Grc9L6" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Maps Detail &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Wisata 7: Situ Bagendit -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="wisata/garut/SITU-BAGENDIT-GARUT-3.jpg" alt="Trip ATV Adventure" class="w-full h-100 object-cover cursor-pointer"
+                             @click="modalImages = ['wisata/garut/SITU-BAGENDIT-GARUT-3.jpg']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Situ Bagendit'">
+                        <div class="p-4">
+                            <h3 class="text-1xl font-bold font-serif-display mb-2 text-white">Situ Bagendit</h3>
+                            <p class="text-1xl text-justify text-gray-400 mb-15">Danau besar yang legendaris dengan cerita rakyat tentang Nyai Bagendit di Banyuresmi, Garut. Sekarang jadi tempat piknik keluarga yang lengkap banget: ada perahu, sepeda air, sampai kereta mini.</p>
+                            <a href="https://maps.app.goo.gl/BkR3GZ6zyz6Str2H8" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Maps Detail &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Wisata 8: Situ Cangkuang -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="wisata/garut/Cangkuang-2.jpg" alt="Trip ATV Adventure" class="w-full h-100 object-cover cursor-pointer"
+                             @click="modalImages = ['wisata/garut/Cangkuang-2.jpg','wisata/garut/Wisata-Situ-Cangkuang.jpg']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Situ Cangkuang'">
+                        <div class="p-4">
+                            <h3 class="text-1xl font-bold font-serif-display mb-2 text-white">Situ Cangkuang</h3>
+                            <p class="text-1xl text-justify text-gray-400 mb-15">Nggak kalah dengan Situ Bagendit, wisata Garut ini berlokasi di Leles, dekat Candi Cangkuang yang punya vibe tenang dengan perahu tradisional yang bisa kamu sewa keliling danau. Cocok buat piknik bareng keluarga.</p>
+                            <a href="https://maps.app.goo.gl/f96pcKajM3zgDFCdA" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Maps Detail &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Wisata 9: Darajat Pass -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="wisata/garut/darajat-pass-garut.jpg" alt="Trip ATV Adventure" class="w-full h-100 object-cover cursor-pointer"
+                             @click="modalImages = ['wisata/garut/darajat-pass-garut.jpg','wisata/garut/Darajat-Pass-Waterpark-Hatami-Nugraha.jpg']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Darajat Pass'">
+                        <div class="p-4">
+                            <h3 class="text-1xl font-bold font-serif-display mb-2 text-white">Darajat Pass</h3>
+                            <p class="text-1xl text-justify text-gray-400 mb-15">Pemandian air panas dengan pemandangan gunung yang adem di daerah Pasirwangi, Garut, ini cocok buat relaksasi. Apalagi sambil liat kabut tipis-tipis naik dari perbukitan.</p>
+                            <a href="https://maps.app.goo.gl/ZET6eJzf4ScZULZ7A" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Maps Detail &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Wisata 10: Taman Air Sabda Alam -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="wisata/garut/th.jpeg" alt="Trip ATV Adventure" class="w-full h-100 object-cover cursor-pointer"
+                             @click="modalImages = ['wisata/garut/th.jpeg','wisata/garut/taman-air-sabda-alam-2.jpg']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Taman Air Sabda Alam'">
+                        <div class="p-4">
+                            <h3 class="text-1xl font-bold font-serif-display mb-2 text-white">Taman Air Sabda Alam</h3>
+                            <p class="text-1xl text-justify text-gray-400 mb-15">Berlokasi di Rancabango, Tarogong Kaler, Garut, taman air ini punya tiga kolam menarik: Kiddies Pool, Wave Pool, dan Spilled Bucket. Tempat ini cocok untuk rekreasi keluarga dan bermain air sepuasnya.</p>
+                            <a href="https://maps.app.goo.gl/QBb5t2hFyPQrz72x7" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Maps Detail &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Wisata 11: Kebun Mawar Situhapa -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="wisata/garut/kebun-mawar-situhapa-heru-purnomo.jpg" alt="Trip ATV Adventure" class="w-full h-100 object-cover cursor-pointer"
+                             @click="modalImages = ['wisata/garut/kebun-mawar-situhapa-heru-purnomo.jpg','wisata/garut/mawar.jpg','wisata/garut/Harga-Tiket-Masuk-Kebun-Mawar-Situhapa.webp']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Kebun Mawar Situhapa'">
+                        <div class="p-4">
+                            <h3 class="text-1xl font-bold font-serif-display mb-2 text-white">Kebun Mawar Situhapa</h3>
+                            <p class="text-1xl text-justify text-gray-400 mb-15">Berlokasi di Samarang, Garut, taman bunga ini luas banget dan cocok buat foto-foto cantik. Ada resto dan cottage juga buat yang pengen nginep di tengah taman.</p>
+                            <a href="https://maps.app.goo.gl/5DyCkdVQJS228WyBA" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Maps Detail &rarr;</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+        </section>
+    </main>
+
+    <!-- Image Modal -->
+    <div x-show="modalImage" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 p-4" style="display: none;">
+        <div class="relative w-full h-full flex flex-col items-center justify-center">
+            <!-- Title -->
+            <h3 class="text-white text-2xl font-bold mb-4" x-text="modalTitle"></h3>
+
+            <!-- Image Container -->
+            <div class="relative overflow-hidden w-full max-w-4xl h-full max-h-[70vh]">
+                <img :src="modalImage" class="absolute top-0 left-0 w-full h-full object-contain transition-transform duration-300" :style="`transform: scale(${scale}) translate(${posX}px, ${posY}px); cursor: grab;`" 
+                     @mousedown="let isDragging = true; let startX = event.clientX - posX; let startY = event.clientY - posY; 
+                                 const onMouseMove = (e) => { if (!isDragging) return; posX = e.clientX - startX; posY = e.clientY - startY; };
+                                 const onMouseUp = () => { isDragging = false; document.removeEventListener('mousemove', onMouseMove); document.removeEventListener('mouseup', onMouseUp); };
+                                 document.addEventListener('mousemove', onMouseMove); document.addEventListener('mouseup', onMouseUp);"
+                     @mouseup="isDragging = false">
+            </div>
+
+            <!-- Controls -->
+            <div class="absolute top-4 right-4 flex items-center space-x-4">
+                <button @click="scale = Math.min(scale + 0.2, 3)" class="bg-gray-800 bg-opacity-50 text-white rounded-full p-2 hover:bg-opacity-75 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3h-6"></path></svg>
+                </button>
+                <button @click="scale = Math.max(scale - 0.2, 0.5)" class="bg-gray-800 bg-opacity-50 text-white rounded-full p-2 hover:bg-opacity-75 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 10H7"></path></svg>
+                </button>
+                <button @click="modalImage = null; scale = 1; posX = 0; posY = 0;" class="bg-gray-800 bg-opacity-50 text-white rounded-full p-2 hover:bg-opacity-75 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+
+            <!-- Navigation -->
+            <button @click="currentImageIndex = (currentImageIndex - 1 + modalImages.length) % modalImages.length; modalImage = modalImages[currentImageIndex]; scale = 1; posX = 0; posY = 0;" class="absolute left-4 top-1/2 -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white rounded-full p-2 hover:bg-opacity-75 transition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+            </button>
+            <button @click="currentImageIndex = (currentImageIndex + 1) % modalImages.length; modalImage = modalImages[currentImageIndex]; scale = 1; posX = 0; posY = 0;" class="absolute right-4 top-1/2 -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white rounded-full p-2 hover:bg-opacity-75 transition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-700 py-8">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="https://www.instagram.com/nianggraeniita/" target="_blank" class="text-gray-400 hover:text-yellow-400 transition">
+                    <img src="foto/logofacebook.jpg" alt="Facebook" class="w-6 h-6">
+                </a>
+                <a href="https://www.instagram.com/nianggraeniita/" target="_blank" class="text-gray-400 hover:text-yellow-400 transition">
+                    <img src="foto/logoinstagram.jpg" alt="Instagram" class="w-6 h-6">
+                </a>
+            </div>
+            <p class="text-yellow-400">&copy; <span id="year"></span> EAST PRIANGAN. All Rights Reserved.</p>
+            <p class="text-sm mt-2">Design By NA-78</p>
+        </div>
+    </footer>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

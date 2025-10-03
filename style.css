@@ -1,0 +1,9 @@
+.slider-dot {
+    transition: background-color 0.3s ease;
+}
+.slider-dot.active {
+    background-color: #D4AF37; /* Gold color for active dot */
+}
+.slider-dot.inactive {
+    background-color: #4B5563; /* Gray color for inactive dots */
+}

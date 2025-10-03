@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akomodasi Hotel - EAST PRIANGAN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="icon" href="foto/logoeastpriangan.png" type="image/png">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #111827; color: #F3F4F6; }
+        .font-serif-display { font-family: 'Playfair Display', serif; }
+        .glass-effect { background: rgba(31, 41, 55, 0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .card-bg { background-color: #1F2937; }
+        .section-title { font-size: 2.25rem; line-height: 2.5rem; }
+        @media (min-width: 768px) { .section-title { font-size: 3rem; line-height: 1; } }
+        .section-subtitle { font-size: 1.125rem; line-height: 1.75rem; }
+    </style>
+</head>
+<body x-data="{ isMenuOpen: false, modalImage: null, modalTitle: '', modalImages: [], currentImageIndex: 0, scale: 1, posX: 0, posY: 0 }">
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-effect" id="navbar">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3">
+                <img src="foto/logoeastpriangan.png" alt="Logo EAST PRIANGAN" class="h-10 w-10 object-contain">
+                <span class="text-xl font-bold font-serif-display text-yellow-400">EAST PRIANGAN</span>
+            </a>
+            <nav class="hidden md:flex space-x-8 text-white">
+                <div x-data="{ open: false, timeout: null }" @mouseover="clearTimeout(timeout); open = true" @mouseleave="timeout = setTimeout(() => open = false, 300)" class="relative">
+                    <a href="index.html" class="hover:text-yellow-400 transition flex items-center">
+                        Home
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </a>
+                    <div x-show="open" class="absolute left-0 mt-2 w-56 bg-gray-800 rounded-md shadow-lg z-10" style="display: none;">
+                        <a href="profile.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Profile East Priangan</a>
+                        <a href="management.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Strategi Management</a>
+                        <a href="index.html#contact" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Kontak Reservasi</a>
+                    </div>
+                </div>
+                <div x-data="{ open: false, timeout: null }" @mouseover="clearTimeout(timeout); open = true" @mouseleave="timeout = setTimeout(() => open = false, 300)" class="relative">
+                    <a href="#" class="hover:text-yellow-400 transition flex items-center">
+                        Penginapan
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </a>
+                    <div x-show="open" class="absolute left-0 mt-2 w-56 bg-gray-800 rounded-md shadow-lg z-10" style="display: none;">
+                        <a href="hotel.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Hotel</a>
+                        <a href="bungalow.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Bungalow</a>
+                        <a href="villa.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Villa</a>
+                    </div>
+                </div>
+                <div x-data="{ open: false, timeout: null }" 
+                     @mouseover="clearTimeout(timeout); open = true" 
+                     @mouseleave="timeout = setTimeout(() => open = false, 300)" 
+                     class="relative">
+                    <a href="#" class="hover:text-yellow-400 transition flex items-center">
+                        Fasilitas
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </a>
+                    <div x-show="open"
+                         x-transition:enter="transition ease-out duration-200"
+                         x-transition:enter-start="opacity-0 transform -translate-y-2"
+                         x-transition:enter-end="opacity-100 transform translate-y-0"
+                         x-transition:leave="transition ease-in duration-150"
+                         x-transition:leave-start="opacity-100 transform translate-y-0"
+                         x-transition:leave-end="opacity-0 transform -translate-y-2"
+                         class="absolute left-0 mt-2 w-56 bg-gray-800 rounded-md shadow-lg z-10"
+                         style="display: none;">
+                        <a href="meeting-room.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Meeting Room</a>
+                        <a href="menu-dinner.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Menu Dinner</a>
+                        <a href="menu-alacarte.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Menu Alacarte</a>
+                    </div>
+                </div>
+                <a href="wisata.html" class="hover:text-yellow-400 transition">Wisata</a>
+                <a href="package.html" class="hover:text-yellow-400 transition">Package</a>
+            </nav>
+            <button @click="isMenuOpen = !isMenuOpen" class="md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <div x-show="isMenuOpen" class="md:hidden bg-gray-800">
+            <div x-data="{ open: false }">
+                <button @click="open = !open" class="w-full text-left block py-2 px-4 text-sm text-white hover:bg-gray-700 flex justify-between items-center">
+                    Home
+                    <svg class="w-4 h-4" :class="{'transform rotate-180': open}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div x-show="open" class="pl-4">
+                    <a href="profile.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Profile East Priangan</a>
+                    <a href="management.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Strategi Management</a>
+                    <a href="index.html#contact" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Kontak Reservasi</a>
+                </div>
+            </div>
+            <div x-data="{ open: false }">
+                <button @click="open = !open" class="w-full text-left block py-2 px-4 text-sm text-white hover:bg-gray-700 flex justify-between items-center">
+                    Penginapan
+                    <svg class="w-4 h-4" :class="{'transform rotate-180': open}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div x-show="open" class="pl-4">
+                    <a href="hotel.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Hotel</a>
+                    <a href="bungalow.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Bungalow</a>
+                    <a href="villa.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Villa</a>
+                </div>
+            </div>
+            <div x-data="{ open: false }">
+                <button @click="open = !open" class="w-full text-left block py-2 px-4 text-sm text-white hover:bg-gray-700 flex justify-between items-center">
+                    Fasilitas
+                    <svg class="w-4 h-4" :class="{'transform rotate-180': open}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div x-show="open" class="pl-4">
+                    <a href="meeting-room.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Meeting Room</a>
+                    <a href="menu-dinner.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Menu Dinner</a>
+                    <a href="menu-alacarte.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Menu Alacarte</a>
+                </div>
+            </div>
+            <a href="wisata.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Wisata</a>
+            <a href="package.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Package</a>
+        </div>
+    </header>
+
+    <main class="pt-20">
+        <section id="hotel" class="py-20">
+            <div class="container mx-auto px-6">
+                <h1 class="section-title font-serif-display font-bold text-center mb-4 text-white">Akomodasi Hotel Pangandaran</h1>
+                <p class="section-subtitle text-center text-gray-400 mb-12 max-w-2xl mx-auto">Daftar hotel rekanan kami yang menawarkan kenyamanan modern dengan pemandangan yang menakjubkan di Pangandaran.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-12 lg:grid-cols-3 gap-10">
+                    <!-- GRAND AQUARIUM -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="hotel/Grand Aquarium/20241125_144741-768x404.jpg" alt="Grand Aquarium" class="w-full h-100 object-cover cursor-pointer" 
+                             @click="modalImages = ['hotel/Grand Aquarium/vip room.png', 'hotel/Grand Aquarium/family room.png']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Grand Aquarium'">
+                        <div class="p-4">
+                            <h3 class="text-1xl font-bold font-serif-display mb-2 text-white">Grand Aquarium</h3>
+                            <p class="text-gray-400 mb-2">JL. PANTAI BARAT NO.87 PANGANDARAN</p>
+                            <p class="text-justify text-gray-400 mt-1">Setiap perjalanan memiliki cerita, dan kamar Anda adalah tempat cerita itu dimulai. Di Grand Aquarium Hotel, kami menghadirkan ruang yang bukan hanya untuk beristirahat, tapi juga untuk menikmati momen terbaik bersama keluarga, pasangan, atau rekan kerja Anda. Temukan pilihan kamar yang sesuai dengan kebutuhan dan gaya liburan Anda – semuanya dilengkapi fasilitas lengkap, suasana tenang, dan tentu saja, sentuhan pelayanan yang hangat dari tim kami.</p>
+                            <a href="http://wa.me/6288975876691" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Detail &rarr;</a>
+                        </div>
+                    </div>
+                    
+                    <!-- GRAND MUTIARA -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="hotel/Grand Mutiara/gran mutiara cover.jpg" alt="Grand Mutiara" class="w-full h-100 object-cover cursor-pointer"
+                             @click="modalImages = ['hotel/Grand Mutiara/Screenshot 2025-09-24 005208.png', 'hotel/Grand Mutiara/Screenshot 2025-09-24 005323.png', 'hotel/Grand Mutiara/Screenshot 2025-09-24 005408.png','hotel/Grand Mutiara/Screenshot 2025-09-24 005511.png','hotel/Grand Mutiara/Screenshot 2025-09-24 005611.png','hotel/Grand Mutiara/Screenshot 2025-09-24 005643.png','hotel/Grand Mutiara/Screenshot 2025-09-24 005721.png','hotel/Grand Mutiara/Screenshot 2025-09-24 005741.png']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Grand Mutiara'">
+                        <div class="p-4">
+                            <h3 class="text-1xl font-bold font-serif-display mb-2 text-white">Grand Mutiara</h3>
+                            <p class="text-gray-400 mb-2">JL. PANTAI BARAT NO. 145 PANGANDARAN</p>
+                            <p class="text-justify text-gray-400 mt-1">Bagi para wisatawan yang sering berkunjung ke Pantai Barat Pangandaran, nama Hotel Grand Mutiara pasti sudah tidak asing bagi mereka, karena Hotel Grand Mutiara sudah berdiri sejak tahun 1995. Dulu Hotel Grand Mutiara merupakan hotel sederhana di Pangandaran atau mungkin bisa dikatakan sebagai hotel kelas melati di Pangandaran, namun sejak diakusisi tahun 2012 Hotel Grand Mutiara tampil dengan konsep dan penampilan baru. Hotel Grand Mutiara sekarang telah berdiri kokoh dan tumbuh menjadi salah satu hotel resort terbaik di Pangandaran. Fasilitas Hotel Grand Mutira sekarang telah sejajar dengan hotel-hotel berbintang di Pangandaran.</p>
+                            <a href="http://wa.me/6288975876691" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Detail &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- COTTAGE BLUE ORCHID -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="hotel/Cottage Blue Orchid/Screenshot 2025-09-24 022022.png" alt="Cottage Blue Orchid" class="w-full h-100 object-cover cursor-pointer"
+                             @click="modalImages = ['hotel/Cottage Blue Orchid/utama.jpeg', 'hotel/Cottage Blue Orchid/room.jpeg','hotel/Cottage Blue Orchid/halaman.jpeg']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Cottage Blue Orchid'">
+                        <div class="p-4">
+                            <h3 class="text-1xl font-bold font-serif-display mb-2 text-white">Cottage Blue Orchid</h3>
+                            <p class="text-gray-400 mb-2">JL. PANTAI BARAT NO. 43 PANGANDARAN</p>
+                            <p class="text-justify text-gray-400 mt-1">Blue Orchid adalah hotel keluarga yang nyaman dan unik terletak di jantung Pangandaran. Blue Orchid Hotel menawarkan layanan yang penuh perhatian dan sentuhan personal yang selalu tersedia untuk membantu seluruh pelanggan.Blue Orchid Hotel menawarkan akan memenuhi kebutuhan anda, baik keintiman bersama pasangan atau bersenang senang dengan keluarga dan kolega anda.</p>
+                            <a href="http://wa.me/6288975876691" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Detail &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- GRAND PACIFIC -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="hotel/Grand Pacific/Screenshot 2025-09-24 012012.png" alt="Grand Pacific" class="w-full h-100 object-cover cursor-pointer"
+                             @click="modalImages = ['hotel/Grand Pacific/GP-Pangandaran-3.jpg', 'hotel/Grand Pacific/Screenshot 2025-09-24 011742.png','hotel/Grand Pacific/Screenshot 2025-09-24 012758.png','hotel/Grand Pacific/GP-Pangandaran-2.jpg','hotel/Grand Pacific/Screenshot 2025-09-24 014006.png']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Grand Pacific'">
+                        <div class="p-4">
+                            <h3 class="text-1xl font-bold font-serif-display mb-2 text-white">Grand Pacific</h3>
+                            <p class="text-gray-400 mb-2">JL. PRAMUKA NO. 01 PANGANDARAN</p>
+                            <p class="text-justify text-gray-400 mt-1">Grand Pacific Hotel Pangandaran hadir sebagai sebuah Maha karya  dengan konsep hunian yang minimalis dan modern di pusat Jantung kota wisata Pangandaran. Dengan Fasilitas lengkap yang memanjakan pengunjung, dbisa di jadikan pilihan tepat saat berlibur di Pangandaran.</p>
+                            <a href="http://wa.me/6288975876691" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Detail &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- GRAND CAHAYA -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="hotel/Grand Cahaya/unnamed.jpg" alt="Grand Cahaya" class="w-full h-100 object-cover cursor-pointer"
+                             @click="modalImages = ['hotel/Grand Cahaya/utama.jpg','hotel/Grand Cahaya/636408109.jpg','hotel/Grand Cahaya/Screenshot 2025-09-24 015252.png','hotel/Grand Cahaya/Screenshot 2025-09-24 015402.png','hotel/Grand Cahaya/Screenshot 2025-09-24 015433.png','hotel/Grand Cahaya/Screenshot 2025-09-24 015458.png','hotel/Grand Cahaya/Screenshot 2025-09-24 015533.png']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Grand Cahaya'">
+                        <div class="p-4">
+                            <h3 class="text-1xl font-bold font-serif-display mb-2 text-white">Grand Cahaya</h3>
+                            <p class="text-gray-400 mb-2">JL.SUMARDI NO.9 PANGANDARAN</p>
+                            <p class="text-justify text-gray-400 mt-1">Hotel Grand Cahaya menawarkan akomodasi di Pangandaran dan berjarak sejauh 1,3 km dari Pantai Pangandaran. Properti ini memiliki akses WiFi gratis & penyimpanan bagasi. Setiap kamar dilengkapi dengan TV layar datar & AC. Shower & peralatan mandi gratis tersedia di kamar mandi. Tamu dapat menikmati makanan di Ocean Kitchen Restaurant. Pilihan tempat makan lain juga tersedia di sekitar properti.</p>
+                            <a href="http://wa.me/6288975876691" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Detail &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- HOTEL LAUT BIRU -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="hotel/Hotel Laut Biru/utama.jpeg" alt="Hotel Laut Biru" class="w-full h-100 object-cover cursor-pointer"
+                             @click="modalImages = ['hotel/Hotel Laut Biru/kamar.jpeg', 'hotel/Hotel Laut Biru/room.jpeg','hotel/Hotel Laut Biru/bedroom.jpeg','hotel/Hotel Laut Biru/kolam.jpeg']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Hotel Laut Biru'">
+                        <div class="p-4">
+                            <h3 class="text-1xl font-bold font-serif-display mb-2 text-white">Hotel Laut Biru</h3>
+                            <p class="text-gray-400 mb-2">JL.E.JAGA LAUTAN NO. 17 PANGANDARAN</p>
+                            <p class="text-justify text-gray-400 mt-1">Hotel ini adalah pilihan sempurna bagi pasangan yang mencari liburan romantis atau bulan madu. Nikmati malam-malam paling berkesan bersama orang terkasih dengan menginap di Laut Biru Resort Hotel. Dari acara bisnis hingga pertemuan perusahaan, Laut Biru Resort Hotel menyediakan layanan dan fasilitas lengkap yang Anda dan kolega butuhkan. Bersenang-senanglah dengan berbagai fasilitas hiburan untuk Anda dan seluruh keluarga di Laut Biru Resort Hotel, akomodasi yang indah untuk liburan keluarga Anda.</p>
+                            <a href="http://wa.me/6288975876691" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Detail &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <main class="pt-24">
+        <section id="hotel" class="py-20">
+            <div class="container mx-auto px-6">
+                <h1 class="section-title font-serif-display font-bold text-center mb-4 text-white">Akomodasi Hotel Garut</h1>
+                <p class="section-subtitle text-center text-gray-400 mb-12 max-w-2xl mx-auto">Daftar hotel rekanan kami yang menawarkan kenyamanan modern dengan pemandangan yang menakjubkan di Garut.</p>
+                
+                <div class="grid grid-cols-6 md:grid-cols-4 lg:grid-cols-3 gap-8">
+                    <!-- HOTEL TIRTA ALAM 2 -->
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="hotel/Hotel Tirta Alam 2/Screenshot 2025-09-28 020534.png" alt="Hotel Tirta Alam 2 Garut" class="w-full h-100 object-cover cursor-pointer" 
+                             @click="modalImages = ['hotel/Hotel Tirta Alam 2/Screenshot 2025-09-28 020534.png','hotel/Hotel Tirta Alam 2/unnamed (1).webp','hotel/Hotel Tirta Alam 2/unnamed (2).webp','hotel/Hotel Tirta Alam 2/unnamed (3).webp','hotel/Hotel Tirta Alam 2/unnamed (4).webp','hotel/Hotel Tirta Alam 2/unnamed.webp']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Hotel Tirta Alam 2 Garut'">
+                        <div class="p-4">
+                            <h3 class="text-1xl font-bold font-serif-display mb-2 text-white">Hotel Tirta Alam 2 Garut</h3>
+                            <p class="text-gray-400 mb-2">Jl. Cipanas Baru, Pananjung, Kec. Tarogong Kaler, Kabupaten Garut, Jawa Barat 44151</p>
+                            <p class="text-justify text-gray-400 mt-1">Hotel Tirta Alam Cipanas Garut merupakan salah satu penginapan yang cocok untuk menikmati keindahan alam Garut yang menawan. Berlokasi di kawasan Cipanas, hotel ini menawarkan kenyamanan yang membuat tamu betah untuk menginap di sana. Menginap di Hotel Tirta Kencana Cipanas Garut adalah pilihan yang baik ketika Anda mengunjungi Tarogong Kaler., kami menghadirkan ruang yang bukan hanya untuk beristirahat, tapi juga untuk menikmati momen terbaik bersama keluarga, pasangan, atau rekan kerja Anda. Temukan pilihan kamar yang sesuai dengan kebutuhan dan gaya liburan Anda – semuanya dilengkapi fasilitas lengkap, suasana tenang, dan tentu saja, sentuhan pelayanan yang hangat dari tim kami.</p>
+                            <a href="http://wa.me/6288975876691" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Detail &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-900 border-t border-gray-700 py-8">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="https://www.instagram.com/nianggraeniita/" target="_blank" class="text-gray-400 hover:text-yellow-400 transition">
+                    <img src="foto/logofacebook.jpg" alt="Facebook" class="w-6 h-6">
+                </a>
+                <a href="https://www.instagram.com/nianggraeniita/" target="_blank" class="text-gray-400 hover:text-yellow-400 transition">
+                    <img src="foto/logoinstagram.jpg" alt="Instagram" class="w-6 h-6">
+                </a>
+            </div>
+            <p class="text-yellow-400">&copy; <span id="year"></span> EAST PRIANGAN. All Rights Reserved.</p>
+            <p class="text-sm mt-2">Design By NA-78</p>
+        </div>
+    </footer>
+
+    <!-- Image Modal -->
+    <div x-show="modalImage" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 p-4" style="display: none;">
+        <div class="relative w-full h-full flex flex-col items-center justify-center">
+            <!-- Title -->
+            <h3 class="text-white text-2xl font-bold mb-4" x-text="modalTitle"></h3>
+
+            <!-- Image Container -->
+            <div class="relative overflow-hidden w-full max-w-4xl h-full max-h-[70vh]">
+                <img :src="modalImage" class="absolute top-0 left-0 w-full h-full object-contain transition-transform duration-300" :style="`transform: scale(${scale}) translate(${posX}px, ${posY}px); cursor: grab;`" 
+                     @mousedown="let isDragging = true; let startX = event.clientX - posX; let startY = event.clientY - posY; 
+                                 const onMouseMove = (e) => { if (!isDragging) return; posX = e.clientX - startX; posY = e.clientY - startY; };
+                                 const onMouseUp = () => { isDragging = false; document.removeEventListener('mousemove', onMouseMove); document.removeEventListener('mouseup', onMouseUp); };
+                                 document.addEventListener('mousemove', onMouseMove); document.addEventListener('mouseup', onMouseUp);"
+                     @mouseup="isDragging = false">
+            </div>
+
+            <!-- Controls -->
+            <div class="absolute top-4 right-4 flex items-center space-x-4">
+                <button @click="scale = Math.min(scale + 0.2, 3)" class="bg-gray-800 bg-opacity-50 text-white rounded-full p-2 hover:bg-opacity-75 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3h-6"></path></svg>
+                </button>
+                <button @click="scale = Math.max(scale - 0.2, 0.5)" class="bg-gray-800 bg-opacity-50 text-white rounded-full p-2 hover:bg-opacity-75 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 10H7"></path></svg>
+                </button>
+                <button @click="modalImage = null; scale = 1; posX = 0; posY = 0;" class="bg-gray-800 bg-opacity-50 text-white rounded-full p-2 hover:bg-opacity-75 transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+
+            <!-- Navigation -->
+            <button @click="currentImageIndex = (currentImageIndex - 1 + modalImages.length) % modalImages.length; modalImage = modalImages[currentImageIndex]; scale = 1; posX = 0; posY = 0;" class="absolute left-4 top-1/2 -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white rounded-full p-2 hover:bg-opacity-75 transition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+            </button>
+            <button @click="currentImageIndex = (currentImageIndex + 1) % modalImages.length; modalImage = modalImages[currentImageIndex]; scale = 1; posX = 0; posY = 0;" class="absolute right-4 top-1/2 -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white rounded-full p-2 hover:bg-opacity-75 transition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

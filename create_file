@@ -1,0 +1,38 @@
+---FILEPATH \package.json
+---FIND
+```
+"dependencies": {
+```
+---REPLACE
+```
+"dependencies": {
+  "jest": "latest"
+```
+---COMPLETE
+
+---FILEPATH \package.json
+---FIND
+```
+"scripts": {
+```
+---REPLACE
+```
+"scripts": {
+  "test": "jest",
+```
+---COMPLETE
+
+---FILEPATH \create_file.js
+---FIND
+```
+```
+---REPLACE
+```
+function exampleFunction() {
+  // Example function to be tested
+  return true;
+}
+
+module.exports = { exampleFunction };
+```
+---COMPLETE

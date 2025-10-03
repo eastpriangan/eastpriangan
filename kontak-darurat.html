@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontak Darurat - EAST PRIANGAN</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter & Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    
+    <!-- Favicon (Logo EP) -->
+    <link rel="icon" href="foto/logoeastpriangan.png" type="image/png">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* Dark background */
+            color: #F3F4F6; /* Light text */
+        }
+        .font-serif-display {
+            font-family: 'Playfair Display', serif;
+        }
+        .card-bg {
+            background-color: #1F2937; /* Slightly lighter dark for cards */
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-gray-800 py-4 shadow-md sticky top-0 z-10">
+        <div class="container mx-auto px-6 flex items-center justify-between">
+            <a href="index.html" class="flex items-center space-x-3">
+                <img src="foto/logoeastpriangan.png" alt="Logo EAST PRIANGAN" class="h-10 w-10 object-contain">
+                <span class="text-xl font-bold font-serif-display text-yellow-400">EAST PRIANGAN</span>
+            </a>
+            <a href="index.html" class="text-sm text-yellow-400 hover:text-yellow-300 border border-yellow-400 rounded-full px-4 py-2 transition-all duration-300 hover:bg-yellow-400 hover:text-gray-900">
+                &larr; Kembali ke Home
+            </a>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- Emergency Contacts Section -->
+        <section id="emergency-contacts" class="py-16">
+            <div class="container mx-auto px-6">
+                <h1 class="text-4xl md:text-5xl font-serif-display font-bold text-center mb-4 text-white">Kontak Darurat Pangandaran</h1>
+                <p class="text-lg text-center text-gray-400 mb-12 max-w-2xl mx-auto">Informasi penting yang mungkin Anda butuhkan dalam keadaan darurat di sekitar area Pangandaran.</p>
+                
+                <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Polisi -->
+                    <div class="card-bg rounded-lg p-6 shadow-lg border border-gray-700">
+                        <div class="flex items-center mb-4">
+                            <svg class="w-8 h-8 text-yellow-400 mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" /></svg>
+                            <h2 class="text-2xl font-bold font-serif-display text-white">Polsek Pangandaran</h2>
+                        </div>
+                        <p class="text-gray-300 mb-2"><strong>Polsek Pangandaran:</strong></p>
+                        <p class="text-gray-400 mb-4">Jl. Merdeka No.175, Pananjung, Kec. Pangandaran, Kab. Pangandaran, Jawa Barat 46215</p>
+                        <a href="tel:0265639075" class="inline-block bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition">Telepon: (0265) 639075</a>
+                    </div>
+                    
+                    <!-- Rumah Sakit -->
+                    <div class="card-bg rounded-lg p-6 shadow-lg border border-gray-700">
+                        <div class="flex items-center mb-4">
+                             <svg class="w-8 h-8 text-yellow-400 mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+                            <h2 class="text-2xl font-bold font-serif-display text-white">Rumah Sakit Pangandaran</h2>
+                        </div>
+                        <p class="text-gray-300 mb-2"><strong>RSUD Pandega Pangandaran:</strong></p>
+                        <p class="text-gray-400 mb-4">Jl. Merdeka No.354, Pangandaran</p>
+                        <a href="tel:02657503044" class="inline-block bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition">Telepon: (0265) 7503044</a>
+                    </div>
+
+                    <!-- Puskesmas Pangandaran -->
+                    <div class="card-bg rounded-lg p-6 shadow-lg border border-gray-700">
+                        <div class="flex items-center mb-4">
+                           <svg class="w-8 h-8 text-yellow-400 mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+                            <h2 class="text-2xl font-bold font-serif-display text-white">Puskesmas Pangandaran</h2>
+                        </div>
+                        <p class="text-gray-300 mb-2"><strong>Puskesmas Pangandaran:</strong></p>
+                        <p class="text-gray-400 mb-4">Jl. Parapat No. 11 Pangandaran , Indonesia 46396</p>
+                        <a href="tel:02656639118" class="inline-block bg-yellow-400 text-white font-bold py-2 px-4 rounded-lg hover:bg-yellow-400 transition">Telepon: (0265) 6639118</a>
+                    </div>
+
+                    <!-- Pemadam Kebakaran -->
+                    <div class="card-bg rounded-lg p-6 shadow-lg border border-gray-700">
+                        <div class="flex items-center mb-4">
+                           <svg class="w-8 h-8 text-yellow-400 mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" /></svg>
+                            <h2 class="text-2xl font-bold font-serif-display text-white">Pemadam Kebakaran Pangandaran</h2>
+                        </div>
+                        <p class="text-gray-300 mb-2"><strong>Pos Damkar Pangandaran:</strong></p>
+                        <p class="text-gray-400 mb-4">Jl. Raya Parigi, Karangbenda, Kec. Parigi, Kab. Pangandaran, Jawa Barat 46393</p>
+                        <a href="tel:082211124545" class="inline-block bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700 transition">Telepon: 082211124545</a>
+                    </div>
+
+                    <!-- Kantor Kecamatan Pangandaran -->
+                    <div class="card-bg rounded-lg p-6 shadow-lg border border-gray-700">
+                        <div class="flex items-center mb-4">
+                           <svg class="w-8 h-8 text-yellow-400 mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" /></svg>
+                            <h2 class="text-2xl font-bold font-serif-display text-white">Kantor Kecamatan Pangandaran</h2>
+                        </div>
+                        <p class="text-gray-300 mb-2"><strong>Kantor Kecamatan Pangandaran:</strong></p>
+                        <p class="text-gray-400 mb-4">Jl.Raya Merdeka No 185 , Indonesia 46396</p>
+                        <a href="tel:0265639073" class="inline-block bg-black text-white font-bold py-2 px-4 rounded-lg hover:bg-black transition">Telepon: (0265) 639073</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <main class="flex-grow">
+        <!-- Emergency Contacts Section -->
+        <section id="emergency-contacts" class="py-16">
+            <div class="container mx-auto px-6">
+                <h1 class="text-4xl md:text-5xl font-serif-display font-bold text-center mb-4 text-white">Kontak Darurat Garut</h1>
+                <p class="text-lg text-center text-gray-400 mb-12 max-w-2xl mx-auto">Informasi penting yang mungkin Anda butuhkan dalam keadaan darurat di sekitar area Pangandaran.</p>
+                
+                <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Polisi -->
+                    <div class="card-bg rounded-lg p-6 shadow-lg border border-gray-700">
+                        <div class="flex items-center mb-4">
+                            <svg class="w-8 h-8 text-yellow-400 mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" /></svg>
+                            <h2 class="text-2xl font-bold font-serif-display text-white">Polsek Tarogong Kaler</h2>
+                        </div>
+                        <p class="text-gray-300 mb-2"><strong>Polsek Tarogong Kaler:</strong></p>
+                        <p class="text-gray-400 mb-4">Jl. Rancabango, Tarogong, Kec. Tarogong Kaler, Kabupaten Garut, Jawa Barat 44151</p>
+                        <a href="tel:0262234110" class="inline-block bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition">Telepon: (0262) 234110</a>
+                    </div>
+                    
+                    <!-- Rumah Sakit -->
+                    <div class="card-bg rounded-lg p-6 shadow-lg border border-gray-700">
+                        <div class="flex items-center mb-4">
+                             <svg class="w-8 h-8 text-yellow-400 mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+                            <h2 class="text-2xl font-bold font-serif-display text-white">Rumah Sakit Intan Husada Garut</h2>
+                        </div>
+                        <p class="text-gray-300 mb-2"><strong>Rumah Sakit Intan Husada Garut:</strong></p>
+                        <p class="text-gray-400 mb-4">Jalan Mayor Suherman No.72, Tarogong, Kec. Tarogong Kidul, Kabupaten Garut, Jawa Barat 44151</p>
+                        <a href="tel:02622247769" class="inline-block bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition">Telepon: (0262) 2247769</a>
+                    </div>
+
+                    <!-- Puskesmas Tarogong -->
+                    <div class="card-bg rounded-lg p-6 shadow-lg border border-gray-700">
+                        <div class="flex items-center mb-4">
+                           <svg class="w-8 h-8 text-yellow-400 mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+                            <h2 class="text-2xl font-bold font-serif-display text-white">Puskesmas Tarogong</h2>
+                        </div>
+                        <p class="text-gray-300 mb-2"><strong>Puskesmas Tarogong:</strong></p>
+                        <p class="text-gray-400 mb-4">Jl. Suherman No.3, Cimanganten, Kec. Tarogong Kaler, Kabupaten Garut, Jawa Barat 44151</p>
+                        <a href="tel:0262231511" class="inline-block bg-yellow-400 text-white font-bold py-2 px-4 rounded-lg hover:bg-yellow-400 transition">Telepon: (0262) 231511</a>
+                    </div>
+
+                    <!-- Pemadam Kebakaran -->
+                    <div class="card-bg rounded-lg p-6 shadow-lg border border-gray-700">
+                        <div class="flex items-center mb-4">
+                           <svg class="w-8 h-8 text-yellow-400 mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" /></svg>
+                            <h2 class="text-2xl font-bold font-serif-display text-white">Pemadam Kebakaran Garut</h2>
+                        </div>
+                        <p class="text-gray-300 mb-2"><strong>Pos Damkar Pangandaran:</strong></p>
+                        <p class="text-gray-400 mb-4">Jl. Merdeka No.100, Haurpanggung, Kec. Tarogong Kidul, Kabupaten Garut, Jawa Barat 44151</p>
+                        <a href="tel:0262232113" class="inline-block bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700 transition">Telepon: (0262) 232113</a>
+                    </div>
+
+                    <!-- Kantor Kecamatan Tarogong Kaler -->
+                    <div class="card-bg rounded-lg p-6 shadow-lg border border-gray-700">
+                        <div class="flex items-center mb-4">
+                           <svg class="w-8 h-8 text-yellow-400 mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" /></svg>
+                            <h2 class="text-2xl font-bold font-serif-display text-white">Kantor Kecamatan Tarogong Kaler</h2>
+                        </div>
+                        <p class="text-gray-300 mb-2"><strong>Kantor Kecamatan Tarogong Kaler:</strong></p>
+                        <p class="text-gray-400 mb-4">Jl. Suherman No.22, Tarogong, Kec. Tarogong Kidul, Kabupaten Garut, Jawa Barat 44151</p>
+                        <a href="tel:0000000000" class="inline-block bg-black text-white font-bold py-2 px-4 rounded-lg hover:bg-black transition">Telepon: 0000000000</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-700 py-8">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="https://www.instagram.com/leniwiraatmadja/" target="_blank" class="text-gray-400 hover:text-yellow-400 transition">
+                    <img src="foto/logofacebook.jpg" alt="Instagram" class="w-6 h-6">
+                </a>
+                <a href="https://www.instagram.com/leniwiraatmadja/" target="_blank" class="text-gray-400 hover:text-yellow-400 transition">
+                    <img src="foto/logoinstagram.jpg" alt="Instagram" class="w-6 h-6">
+                </a>
+            </div>
+            <p class="text-yellow-400">&copy; <span id="year"></span> EAST PRIANGAN. All Rights Reserved.</p>
+            <p class="text-sm mt-2">Design By NA-78</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+
+</body>
+</html>

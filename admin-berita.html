@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin: Kelola Berita Terkini</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #111827; color: #F3F4F6; }
+        .font-serif-display { font-family: 'Playfair Display', serif; }
+        .input-field { @apply w-full bg-gray-700 border border-gray-600 rounded-md px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400; }
+        .btn { @apply px-4 py-2 rounded-md font-semibold transition-colors; }
+        .btn-primary { @apply bg-yellow-400 text-gray-900 hover:bg-yellow-300; }
+        .btn-secondary { @apply bg-gray-600 text-white hover:bg-gray-500; }
+        .btn-danger { @apply bg-red-600 text-white hover:bg-red-500; }
+    </style>
+</head>
+<body x-data="newsAdmin()">
+    <div class="container mx-auto px-6 py-12">
+        <div class="max-w-5xl mx-auto">
+            <header class="text-center mb-12">
+                <h1 class="text-4xl font-serif-display font-bold text-white">Kelola Berita & Acara</h1>
+                <p class="text-gray-400 mt-2">Halaman ini untuk membuat dan mengedit konten slider di halaman utama.</p>
+            </header>
+
+            <!-- Form untuk Tambah/Edit Slide -->
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg mb-8">
+                <h2 class="text-2xl font-bold font-serif-display text-white mb-4" x-text="isEditing ? 'Edit Slide' : 'Tambah Slide Baru'"></h2>
+                <form @submit.prevent="saveSlide">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="md:col-span-2">
+                            <label for="title" class="block text-sm font-medium text-gray-300 mb-1">Judul</label>
+                            <input type="text" id="title" x-model="form.title" class="input-field" required>
+                        </div>
+                        <div>
+                            <label for="category" class="block text-sm font-medium text-gray-300 mb-1">Kategori</label>
+                            <input type="text" id="category" x-model="form.category" class="input-field" placeholder="Contoh: PROMOSI, ACARA" required>
+                        </div>
+                        <div>
+                            <label for="image" class="block text-sm font-medium text-gray-300 mb-1">URL Gambar</label>
+                            <input type="text" id="image" x-model="form.image" class="input-field" placeholder="Contoh: https://... atau foto/nama-file.jpg" required>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label for="description" class="block text-sm font-medium text-gray-300 mb-1">Deskripsi Singkat</label>
+                            <textarea id="description" x-model="form.description" rows="3" class="input-field"></textarea>
+                        </div>
+                        <div>
+                            <label for="link" class="block text-sm font-medium text-gray-300 mb-1">Link "Baca Selengkapnya"</label>
+                            <input type="text" id="link" x-model="form.link" class="input-field" placeholder="URL tujuan saat diklik" required>
+                        </div>
+                        <div>
+                            <label for="linkText" class="block text-sm font-medium text-gray-300 mb-1">Teks Link</label>
+                            <input type="text" id="linkText" x-model="form.linkText" class="input-field" placeholder="Contoh: Baca Selengkapnya" required>
+                        </div>
+                    </div>
+                    <div class="mt-6 flex items-center space-x-4">
+                        <button type="submit" class="btn btn-primary" x-text="isEditing ? 'Simpan Perubahan' : 'Tambah Slide'"></button>
+                        <button type="button" @click="resetForm()" class="btn btn-secondary" x-show="isEditing">Batal</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Daftar Slide yang Ada -->
+            <div class="bg-gray-800 p-6 rounded-lg shadow-lg mb-8">
+                <h2 class="text-2xl font-bold font-serif-display text-white mb-4">Daftar Slide Saat Ini</h2>
+                <div class="space-y-4">
+                    <template x-for="(slide, index) in slides" :key="index">
+                        <div class="bg-gray-700 p-4 rounded-md flex items-center justify-between">
+                            <div class="flex items-center space-x-4">
+                                <img :src="slide.image" class="w-20 h-12 object-cover rounded-md" alt="">
+                                <div>
+                                    <p class="font-bold text-white" x-text="slide.title"></p>
+                                    <p class="text-sm text-gray-400" x-text="slide.category"></p>
+                                </div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button @click="editSlide(index)" class="btn btn-secondary text-sm">Edit</button>
+                                <button @click="deleteSlide(index)" class="btn btn-danger text-sm">Hapus</button>
+                            </div>
+                        </div>
+                    </template>
+                    <p x-show="slides.length === 0" class="text-gray-400 text-center py-4">Belum ada slide. Silakan tambahkan slide baru.</p>
+                </div>
+            </div>
+
+            <!-- Kode untuk Disalin -->
+            <div class="bg-gray-900 border-2 border-dashed border-gray-600 p-6 rounded-lg">
+                <h2 class="text-2xl font-bold font-serif-display text-white mb-2">Langkah Terakhir: Salin Kode Ini</h2>
+                <p class="text-gray-400 mb-4">Salin semua teks di bawah ini dan tempelkan (replace) ke dalam array `slides` di file <code class="bg-gray-700 px-1 rounded">index.html</code> pada baris sekitar 360.</p>
+                <textarea x-ref="outputCode" rows="15" class="w-full bg-gray-800 text-green-300 font-mono text-sm p-4 rounded-md border border-gray-700" readonly></textarea>
+                <button @click="copyToClipboard()" class="btn btn-primary mt-4">Salin Kode</button>
+                <p x-show="copied" class="text-green-400 mt-2 text-sm">Kode berhasil disalin ke clipboard!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function newsAdmin() {
+            return {
+                // Data awal (bisa disalin dari index.html saat pertama kali)
+                slides: [
+                    {
+                        category: 'PROMOSI',
+                        title: 'Paket Liburan Akhir Pekan Spesial',
+                        description: 'Nikmati diskon 30% untuk pemesanan bungalow selama akhir pekan. Penawaran terbatas, syarat & ketentuan berlaku.',
+                        linkText: 'Baca Selengkapnya',
+                        link: '#',
+                        image: 'https://images.unsplash.com/photo-1561501900-3701fa6a0864?q=80&w=870&auto=format&fit=crop'
+                    },
+                    {
+                        category: 'ACARA',
+                        title: 'Malam Akustik di Tepi Kolam',
+                        description: 'Saksikan penampilan musik akustik setiap Sabtu malam di area kolam renang kami sambil menikmati hidangan spesial.',
+                        linkText: 'Lihat Jadwal',
+                        link: '#',
+                        image: 'https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?q=80&w=870&auto=format&fit=crop'
+                    }
+                ],
+                form: {
+                    category: '', title: '', description: '', linkText: '', link: '', image: ''
+                },
+                isEditing: false,
+                editingIndex: null,
+                copied: false,
+
+                init() {
+                    this.generateOutputCode();
+                    this.$watch('slides', () => this.generateOutputCode());
+                },
+
+                resetForm() {
+                    this.form = { category: '', title: '', description: '', linkText: '', link: '', image: '' };
+                    this.isEditing = false;
+                    this.editingIndex = null;
+                },
+
+                saveSlide() {
+                    if (this.isEditing) {
+                        this.slides[this.editingIndex] = { ...this.form };
+                    } else {
+                        this.slides.push({ ...this.form });
+                    }
+                    this.resetForm();
+                },
+
+                editSlide(index) {
+                    this.isEditing = true;
+                    this.editingIndex = index;
+                    this.form = { ...this.slides[index] };
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                },
+
+                deleteSlide(index) {
+                    if (confirm('Apakah Anda yakin ingin menghapus slide ini?')) {
+                        this.slides.splice(index, 1);
+                    }
+                },
+
+                generateOutputCode() {
+                    const code = JSON.stringify(this.slides, null, 2);
+                    this.$refs.outputCode.value = code;
+                },
+
+                copyToClipboard() {
+                    this.$refs.outputCode.select();
+                    document.execCommand('copy');
+                    this.copied = true;
+                    setTimeout(() => this.copied = false, 2000);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

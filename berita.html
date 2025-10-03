@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="foto/logoeastpriangan.png" type="image/png">
+    <title>Berita & Acara - EAST PRIANGAN</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #111827; color: #F3F4F6; }
+        .font-serif-display { font-family: 'Playfair Display', serif; }
+        .glass-effect { background: rgba(31, 41, 55, 0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        
+        .prose-custom { @apply text-gray-300; }
+        .prose-custom h1, .prose-custom h2, .prose-custom h3 { @apply text-white font-serif-display; }
+        .prose-custom p { @apply mb-4 leading-relaxed; }
+        .prose-custom a { @apply text-yellow-400 hover:underline; }
+        .prose-custom ul { @apply list-disc list-inside mb-4; }
+        .prose-custom li { @apply mb-2; }
+        .prose-custom blockquote { @apply border-l-4 border-yellow-400 pl-4 italic text-gray-400; }
+    </style>
+</head>
+<body x-data="{ isMenuOpen: false }">
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-effect" id="navbar">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3">
+                <img src="foto/logoeastpriangan.png" alt="Logo EAST PRIANGAN" class="h-10 w-10 object-contain">
+                <span class="text-xl font-bold font-serif-display text-yellow-400">EAST PRIANGAN</span>
+            </a>
+            
+            <nav class="hidden md:flex space-x-8 text-white">
+                <div x-data="{ open: false, timeout: null }" @mouseover="clearTimeout(timeout); open = true" @mouseleave="timeout = setTimeout(() => open = false, 300)" class="relative">
+                    <a href="index.html#home" class="hover:text-yellow-400 transition flex items-center">Home<svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></a>
+                    <div x-show="open" x-transition class="absolute left-0 mt-2 w-56 bg-gray-800 rounded-md shadow-lg z-10" style="display: none;"><a href="profile.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Profile East Priangan</a><a href="management.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Strategi Management</a><a href="index.html#contact" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Kontak Reservasi</a></div>
+                </div>
+                <div x-data="{ open: false, timeout: null }" @mouseover="clearTimeout(timeout); open = true" @mouseleave="timeout = setTimeout(() => open = false, 300)" class="relative">
+                    <a href="index.html#rooms" class="hover:text-yellow-400 transition flex items-center">Penginapan<svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></a>
+                    <div x-show="open" x-transition class="absolute left-0 mt-2 w-56 bg-gray-800 rounded-md shadow-lg z-10" style="display: none;"><a href="hotel.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Hotel</a><a href="bungalow.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Bungalow</a><a href="villa.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Villa</a></div>
+                </div>
+                <div x-data="{ open: false, timeout: null }" @mouseover="clearTimeout(timeout); open = true" @mouseleave="timeout = setTimeout(() => open = false, 300)" class="relative">
+                    <a href="#" class="hover:text-yellow-400 transition flex items-center">Fasilitas<svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></a>
+                    <div x-show="open" x-transition class="absolute left-0 mt-2 w-56 bg-gray-800 rounded-md shadow-lg z-10" style="display: none;"><a href="meeting-room.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Meeting Room</a><a href="menu-dinner.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Menu Dinner</a><a href="menu-alacarte.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Menu Alacarte</a></div>
+                </div>
+                <a href="wisata.html" class="hover:text-yellow-400 transition">Wisata</a>
+                <a href="package.html" class="hover:text-yellow-400 transition">Package</a>
+            </nav>
+            <button @click="isMenuOpen = !isMenuOpen" class="md:hidden text-white focus:outline-none"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg></button>
+        </div>
+        <div x-show="isMenuOpen" @click.away="isMenuOpen = false" class="md:hidden bg-gray-800" x-transition>
+             <!-- Mobile Menu Content from index.html -->
+        </div>
+    </header>
+
+    <main class="pt-24">
+        <section id="berita-page" class="py-16">
+            <div class="container mx-auto px-6" 
+                 x-data="newsSystem()" 
+                 x-init="init()">
+                
+                <div class="text-center mb-16">
+                    <h1 class="text-4xl md:text-5xl font-serif-display font-bold text-white">Berita & Acara</h1>
+                    <p class="text-lg text-gray-400 mt-2 max-w-2xl mx-auto">Jelajahi informasi terbaru, acara mendatang, dan promosi menarik dari kami.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+                    
+                    <!-- Kolom Kiri: Konten Artikel yang Dipilih -->
+                    <div class="lg:col-span-2">
+                        <template x-if="selectedArticle">
+                            <article class="bg-gray-800 rounded-lg shadow-2xl p-6 md:p-8">
+                                <img :src="selectedArticle.image" :alt="selectedArticle.title" class="rounded-lg shadow-lg mb-6 w-full h-64 md:h-96 object-cover">
+                                <div class="flex items-center space-x-4 text-gray-400 text-sm mb-3">
+                                    <span class="bg-yellow-400 text-black font-semibold px-2 py-1 rounded text-xs uppercase" x-text="selectedArticle.category"></span>
+                                    <span x-text="selectedArticle.date"></span>
+                                </div>
+                                <h2 class="text-3xl md:text-4xl font-bold font-serif-display text-white mb-6" x-text="selectedArticle.title"></h2>
+                                <div class="prose-custom text-justify max-w-none" x-html="selectedArticle.content"></div>
+                            </article>
+                        </template>
+                        <template x-if="!selectedArticle">
+                            <div class="flex items-center justify-center h-full bg-gray-800 rounded-lg">
+                                <p class="text-gray-400">Pilih berita dari daftar di samping untuk dibaca.</p>
+                            </div>
+                        </template>
+                    </div>
+
+                    <!-- Kolom Kanan: Daftar Berita Lainnya -->
+                    <div class="lg:col-span-1">
+                        <h3 class="text-2xl font-serif-display font-bold text-white mb-6">Berita Lainnya</h3>
+                        <div class="space-y-6">
+                            <template x-for="article in articles" :key="article.id">
+                                <div @click="selectedArticle = article; window.history.pushState({}, '', '#' + article.id)"
+                                     class="flex items-center space-x-4 p-4 rounded-lg cursor-pointer transition-all duration-300"
+                                     :class="{ 'bg-gray-700 shadow-md': selectedArticle && selectedArticle.id === article.id, 'hover:bg-gray-800': !selectedArticle || selectedArticle.id !== article.id }">
+                                    <img :src="article.image" :alt="article.title" class="w-24 h-24 object-cover rounded-md flex-shrink-0">
+                                    <div>
+                                        <span class="text-yellow-400 text-xs font-semibold" x-text="article.category"></span>
+                                        <h4 class="font-bold text-white leading-tight mt-1" x-text="article.title"></h4>
+                                        <p class="text-gray-500 text-xs mt-1" x-text="article.date"></p>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-700 py-8">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="https://www.instagram.com/leniwiraatmadja/" target="_blank" class="text-gray-400 hover:text-yellow-400 transition"><img src="foto/logofacebook.jpg" alt="Facebook" class="w-6 h-6"></a>
+                <a href="https://www.instagram.com/leniwiraatmadja/" target="_blank" class="text-gray-400 hover:text-yellow-400 transition"><img src="foto/logoinstagram.jpg" alt="Instagram" class="w-6 h-6"></a>
+            </div>
+            <p class="text-yellow-400">&copy; <span id="year"></span> EAST PRIANGAN. All Rights Reserved.</p>
+            <p class="text-sm mt-2">Design By NA-78</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        function newsSystem() {
+            return {
+                selectedArticle: null,
+                articles: [
+                    {
+                        id: 'festival-layang-layang-2025',
+                        title: 'Pangandaran Kembali Gelar Festival Layang-layang Internasional 2025',
+                        category: 'Acara',
+                        date: '29 September 2025',
+                        image: 'infoberita/Pangandaran-Internasional-Kite-Festival-4.jpg',
+                        content: `
+                            <p>Langit Pangandaran akan kembali dihiasi oleh ribuan layang-layang dari berbagai negara dalam acara tahunan "Pangandaran International Kite Festival 2025". Acara ini akan menjadi magnet bagi wisatawan lokal maupun mancanegara.</p>
+                            <p>Festival ini tidak hanya menampilkan layang-layang hias berukuran raksasa, tetapi juga berbagai kompetisi seperti layang-layang aduan dan layang-layang olahraga. Pengunjung juga dapat menikmati berbagai stan kuliner khas Priangan dan pertunjukan seni budaya lokal yang akan memeriahkan suasana di sepanjang pantai.</p>
+                            <blockquote>"Ini adalah perayaan budaya dan kreativitas. Kami mengundang semua orang untuk datang dan menjadi bagian dari kemeriahan ini," ujar Kepala Dinas Pariwisata setempat.</blockquote>
+                            <p>East Priangan Group turut berpartisipasi dengan menawarkan paket menginap spesial selama periode festival. Jangan lewatkan kesempatan untuk menyaksikan keindahan langit Pangandaran yang penuh warna!</p>
+                        `
+                    },
+                    {
+                        id: 'open-tournament-voli-pantai',
+                        title: 'Open Tournament Voli Pantai Siap Digelar di Pangandaran',
+                        category: 'Olahraga',
+                        date: '28 September 2025',
+                        image: 'infoberita/open turnamen.jpg',
+                        content: `
+                            <p>Para pecinta olahraga voli pantai akan dimanjakan dengan "Open Tournament Voli Pantai Pangandaran" yang akan diselenggarakan akhir pekan ini. Acara ini diharapkan menarik puluhan tim dari berbagai daerah di Jawa Barat dan sekitarnya.</p>
+                            <p>Turnamen ini akan berlangsung di area khusus Pantai Barat Pangandaran yang telah disiapkan oleh panitia. Selain pertandingan yang sengit, acara ini juga akan dimeriahkan oleh pertunjukan musik dan bazar produk lokal.</p>
+                            <p>East Priangan menyediakan akomodasi yang nyaman bagi para atlet dan penonton yang ingin menginap. "Kami mendukung penuh kegiatan positif seperti ini untuk memajukan pariwisata dan olahraga di Pangandaran," kata perwakilan manajemen.</p>
+                            <a href="package.html" class="font-bold">Cari Akomodasi Dekat Lokasi &rarr;</a>
+                        `
+                    },
+                    {
+                        id: 'promo-libur-sekolah-2025',
+                        title: 'Promo Spesial Libur Sekolah: Diskon 25% di Semua Akomodasi!',
+                        category: 'Promosi',
+                        date: '25 September 2025',
+                        image: 'https://images.unsplash.com/photo-1507525428034-b723a9ce6890?q=80&w=2070&auto=format&fit=crop',
+                        content: `
+                            <p>Rencanakan liburan sekolah yang tak terlupakan bersama keluarga di East Priangan! Nikmati diskon spesial sebesar 25% untuk pemesanan semua tipe akomodasi, mulai dari hotel, bungalow, hingga villa.</p>
+                            <p>Promo ini berlaku untuk periode pemesanan dan menginap selama musim liburan sekolah. Selain potongan harga, dapatkan juga keuntungan tambahan seperti sarapan gratis untuk 4 orang dan akses ke berbagai fasilitas rekreasi kami. Tempat terbatas, segera lakukan reservasi Anda!</p>
+                            <a href="tiket-promo.html" class="font-bold">Lihat Detail Promo &rarr;</a>
+                        `
+                    },
+                    {
+                        id: 'malam-akustik-kolam-renang',
+                        title: 'Malam Akustik Hadir Setiap Akhir Pekan di Tepi Kolam',
+                        category: 'Hiburan',
+                        date: 'Setiap Sabtu Malam',
+                        image: 'https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?q=80&w=870&auto=format&fit=crop',
+                        content: `
+                            <p>Mencari cara santai untuk menghabiskan Sabtu malam Anda? East Priangan kini menghadirkan acara "Malam Akustik" di area kolam renang utama kami. Nikmati alunan musik live yang menenangkan sambil bersantap di bawah bintang.</p>
+                            <p>Acara ini terbuka untuk semua tamu yang menginap dan juga pengunjung umum. Menu spesial dan berbagai pilihan minuman telah disiapkan oleh tim F&B kami untuk menemani malam Anda. Tidak ada biaya masuk, cukup datang dan nikmati suasananya.</p>
+                        `
+                    }
+                ],
+                init() {
+                    const hash = window.location.hash.substring(1);
+                    const articleFromHash = this.articles.find(a => a.id === hash);
+                    if (articleFromHash) {
+                        this.selectedArticle = articleFromHash;
+                    } else {
+                        this.selectedArticle = this.articles[0];
+                    }
+                    
+                    window.onhashchange = () => {
+                        const newHash = window.location.hash.substring(1);
+                        const newArticle = this.articles.find(a => a.id === newHash);
+                        if (newArticle) {
+                            this.selectedArticle = newArticle;
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>

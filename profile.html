@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil - EAST PRIANGAN HOTEL</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="icon" href="foto/logoeastpriangan.png" type="image/png">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #111827; color: #F3F4F6; }
+        .font-serif-display { font-family: 'Playfair Display', serif; }
+        .glass-effect { background: rgba(31, 41, 55, 0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+    </style>
+</head>
+<body x-data="{ isMenuOpen: false }">
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-effect" id="navbar">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3">
+                <img src="foto/logoeastpriangan.png" alt="Logo EAST PRIANGAN" class="h-10 w-10 object-contain">
+                <span class="text-xl font-bold font-serif-display text-yellow-400">EAST PRIANGAN</span>
+            </a>
+            <nav class="hidden md:flex space-x-8 text-white">
+                <div x-data="{ open: false, timeout: null }" 
+                     @mouseover="clearTimeout(timeout); open = true" 
+                     @mouseleave="timeout = setTimeout(() => open = false, 300)" 
+                     class="relative">
+                    <a href="index.html" class="hover:text-yellow-400 transition flex items-center">
+                        Home
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </a>
+                    <div x-show="open"
+                         x-transition:enter="transition ease-out duration-200"
+                         x-transition:enter-start="opacity-0 transform -translate-y-2"
+                         x-transition:enter-end="opacity-100 transform translate-y-0"
+                         x-transition:leave="transition ease-in duration-150"
+                         x-transition:leave-start="opacity-100 transform translate-y-0"
+                         x-transition:leave-end="opacity-0 transform -translate-y-2"
+                         class="absolute left-0 mt-2 w-56 bg-gray-800 rounded-md shadow-lg z-10"
+                         style="display: none;">
+                        <a href="profile.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Profile East Priangan</a>
+                        <a href="management.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Strategi Management</a>
+                        <a href="index.html#contact" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Kontak Reservasi</a>
+                    </div>
+                </div>
+                <div x-data="{ open: false, timeout: null }" 
+                     @mouseover="clearTimeout(timeout); open = true" 
+                     @mouseleave="timeout = setTimeout(() => open = false, 300)" 
+                     class="relative">
+                    <a href="#" class="hover:text-yellow-400 transition flex items-center">
+                        Penginapan
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </a>
+                    <div x-show="open"
+                         x-transition:enter="transition ease-out duration-200"
+                         x-transition:enter-start="opacity-0 transform -translate-y-2"
+                         x-transition:enter-end="opacity-100 transform translate-y-0"
+                         x-transition:leave="transition ease-in duration-150"
+                         x-transition:leave-start="opacity-100 transform translate-y-0"
+                         x-transition:leave-end="opacity-0 transform -translate-y-2"
+                         class="absolute left-0 mt-2 w-56 bg-gray-800 rounded-md shadow-lg z-10"
+                         style="display: none;">
+                        <a href="hotel.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Hotel</a>
+                        <a href="bungalow.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Bungalow</a>
+                        <a href="villa.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Villa</a>
+                    </div>
+                </div>
+                <div x-data="{ open: false, timeout: null }" 
+                     @mouseover="clearTimeout(timeout); open = true" 
+                     @mouseleave="timeout = setTimeout(() => open = false, 300)" 
+                     class="relative">
+                    <a href="#" class="hover:text-yellow-400 transition flex items-center">
+                        Fasilitas
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </a>
+                    <div x-show="open"
+                         x-transition:enter="transition ease-out duration-200"
+                         x-transition:enter-start="opacity-0 transform -translate-y-2"
+                         x-transition:enter-end="opacity-100 transform translate-y-0"
+                         x-transition:leave="transition ease-in duration-150"
+                         x-transition:leave-start="opacity-100 transform translate-y-0"
+                         x-transition:leave-end="opacity-0 transform -translate-y-2"
+                         class="absolute left-0 mt-2 w-56 bg-gray-800 rounded-md shadow-lg z-10"
+                         style="display: none;">
+                        <a href="meeting-room.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Meeting Room</a>
+                        <a href="menu-dinner.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Menu Dinner</a>
+                        <a href="menu-alacarte.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Menu Alacarte</a>
+                    </div>
+                </div>
+                <a href="wisata.html" class="hover:text-yellow-400 transition">Wisata</a>
+                <a href="package.html" class="hover:text-yellow-400 transition">Package</a>
+            </nav>
+            <button @click="isMenuOpen = !isMenuOpen" class="md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <div x-show="isMenuOpen" class="md:hidden bg-gray-800">
+            <div x-data="{ open: false }">
+                <button @click="open = !open" class="w-full text-left block py-2 px-4 text-sm text-white hover:bg-gray-700 flex justify-between items-center">
+                    Home
+                    <svg class="w-4 h-4" :class="{'transform rotate-180': open}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div x-show="open" class="pl-4">
+                    <a href="profile.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Profile East Priangan</a>
+                    <a href="management.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Strategi Management</a>
+                    <a href="index.html#contact" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Kontak Reservasi</a>
+                </div>
+            </div>
+            <div x-data="{ open: false }">
+                <button @click="open = !open" class="w-full text-left block py-2 px-4 text-sm text-white hover:bg-gray-700 flex justify-between items-center">
+                    Penginapan
+                    <svg class="w-4 h-4" :class="{'transform rotate-180': open}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div x-show="open" class="pl-4">
+                    <a href="hotel.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Hotel</a>
+                    <a href="bungalow.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Bungalow</a>
+                    <a href="villa.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Villa</a>
+                </div>
+            </div>
+            <div x-data="{ open: false }">
+                <button @click="open = !open" class="w-full text-left block py-2 px-4 text-sm text-white hover:bg-gray-700 flex justify-between items-center">
+                    Fasilitas
+                    <svg class="w-4 h-4" :class="{'transform rotate-180': open}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div x-show="open" class="pl-4">
+                    <a href="meeting-room.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Meeting Room</a>
+                    <a href="menu-dinner.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Menu Dinner</a>
+                    <a href="menu-alacarte.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Menu Alacarte</a>
+                </div>
+            </div>
+            <a href="wisata.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Wisata</a>
+            <a href="package.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Package</a>
+        </div>
+    </header>
+
+    <main class="pt-24">
+        <section class="py-20">
+            <div class="container mx-auto px-6">
+                <h1 class="text-4xl md:text-5xl font-serif-display font-bold text-center mb-4 text-yellow-400">East Priangan Tourism & Experience</h1>
+                <p class="text-lg text-center text-gray-400 mb-12 max-w-4xl mx-auto">Sejarah, Lokasi, Visi dan Misi kami dalam memberikan pelayanan perhotelan terbaik di jantung Priangan.</p>
+                <div class="max-w-4xl mx-auto text-gray-300 space-y-8">
+                    
+                    <div>
+                        <h2 class="text-2xl font-bold text-yellow-400 mb-3">Sejarah Wisata Pangandaran dan Garut</h2>
+                        <div class="space-y-4 text-justify">
+                            <p>Di Priangan Timur, dua daerah yang menyimpan pesona luar biasa adalah Pangandaran dan Garut. Keduanya memiliki sejarah panjang dalam dunia pariwisata, sejak masa kolonial hingga kini menjadi destinasi unggulan Jawa Barat.</p>
+                            <p>Pangandaran, dahulu merupakan desa nelayan sederhana di pesisir selatan Jawa Barat. Pada era kolonial Belanda, kawasan ini mulai dikenal karena pantainya yang landai, hutan lindung yang alami, serta pemandangan matahari terbit dan terbenam yang sama indahnya dari satu titik pantai. Sejak tahun 1930-an, Pangandaran menjadi tempat peristirahatan favorit bagi warga Eropa dan elit lokal. Dari waktu ke waktu, pesona Pangandaran berkembang menjadi ikon wisata bahari Jawa Barat, menawarkan keindahan alam, atraksi budaya masyarakat nelayan, hingga kuliner laut yang khas.</p>
+                            <p>Sementara itu, Garut dijuluki sebagai “Swiss van Java” oleh orang Belanda karena keindahan alam pegunungan yang sejuk, hamparan perkebunan, dan sumber air panas alami. Kawasan Sumber Alam di Cipanas Garut sudah lama dikenal sebagai destinasi pemandian air panas sejak zaman kolonial. Air panas belerang yang keluar dari perut bumi dianggap memiliki khasiat kesehatan, sehingga menjadi daya tarik utama wisatawan. Garut tidak hanya menawarkan pesona alam, tetapi juga kekayaan budaya Sunda dan kuliner legendaris seperti dodol Garut yang sudah mendunia.</p>
+                            <p>Dua daerah ini menjadi simbol harmoni antara alam, budaya, dan kuliner yang membentuk identitas Priangan Timur. Sejarah panjang pariwisata Pangandaran dan Garut menjadi landasan kuat untuk menghadirkan pengalaman wisata yang bukan hanya indah dipandang, tetapi juga sarat nilai budaya dan tradisi.</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h2 class="text-2xl font-bold text-yellow-400 mb-3">Lokasi</h2>
+                        <p class="text-justify">Pangandaran dan Garut, Jawa Barat, Indonesia</p>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-yellow-400 mb-3">Visi</h2>
+                        <p class="text-justify">“Menjadi penyedia informasi dan pengalaman wisata terkemuka di Priangan Timur, menghadirkan keindahan alam, kekayaan budaya, dan kuliner khas Pangandaran dan Garut kepada wisatawan lokal dan internasional.”</p>
+                        <p class="text-justify mt-4">Dengan memadukan jejak sejarah Pangandaran dan Garut yang telah dikenal sejak era kolonial dengan semangat modern, perusahaan berkomitmen untuk memperkenalkan potensi wisata Priangan Timur ke tingkat yang lebih tinggi, menjadikannya destinasi kebanggaan Indonesia di mata dunia.</p>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-yellow-400 mb-3">Misi</h2>
+                        <ul class="list-disc list-inside space-y-2 text-justify">
+                            <li>Menyediakan informasi komprehensif tentang akomodasi, kuliner, wisata, dan edukasi di Pangandaran dan Garut.</li>
+                            <li>Menghadirkan pengalaman wisata yang autentik dan berkesan.</li>
+                            <li>Mempromosikan potensi wisata dan budaya lokal Priangan Timur.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-700 py-8">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="https://www.instagram.com/leniwiraatmadja/" target="_blank" class="text-gray-400 hover:text-yellow-400 transition">
+                    <img src="foto/logofacebook.jpg" alt="Instagram" class="w-6 h-6">
+                </a>
+                <a href="https://www.instagram.com/leniwiraatmadja/" target="_blank" class="text-gray-400 hover:text-yellow-400 transition">
+                    <img src="foto/logoinstagram.jpg" alt="Instagram" class="w-6 h-6">
+                </a>
+            </div>
+            <p class="text-yellow-400">&copy; <span id="year"></span> EAST PRIANGAN. All Rights Reserved.</p>
+            <p class="text-sm mt-2">Design By NA-78</p>
+        </div>
+    </footer>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

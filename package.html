@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paket Spesial - EAST PRIANGAN HOTEL</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="icon" href="foto/logoeastpriangan.png" type="image/png">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #111827; color: #F3F4F6; }
+        .font-serif-display { font-family: 'Playfair Display', serif; }
+        .glass-effect { background: rgba(31, 41, 55, 0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .section-title { font-size: 2.25rem; line-height: 2.5rem; }
+        @media (min-width: 768px) { .section-title { font-size: 3rem; line-height: 1; } }
+        .section-subtitle { font-size: 1.125rem; line-height: 1.75rem; }
+    </style>
+</head>
+<body x-data="{ 
+    isMenuOpen: false, 
+    modalImage: '', 
+    modalImages: [],
+    currentImageIndex: 0,
+    modalTitle: '',
+    zoomLevel: 1,
+    isDragging: false,
+    startX: 0,
+    startY: 0,
+    translateX: 0,
+    translateY: 0,
+    nextImage() {
+        this.currentImageIndex = (this.currentImageIndex + 1) % this.modalImages.length;
+        this.modalImage = this.modalImages[this.currentImageIndex];
+        this.resetZoom();
+    },
+    prevImage() {
+        this.currentImageIndex = (this.currentImageIndex - 1 + this.modalImages.length) % this.modalImages.length;
+        this.modalImage = this.modalImages[this.currentImageIndex];
+        this.resetZoom();
+    },
+    zoomIn() {
+        this.zoomLevel = Math.min(this.zoomLevel + 0.25, 3);
+    },
+    zoomOut() {
+        this.zoomLevel = Math.max(this.zoomLevel - 0.25, 0.5);
+    },
+    resetZoom() {
+        this.zoomLevel = 1;
+        this.translateX = 0;
+        this.translateY = 0;
+    },
+    startDrag(e) {
+        if (this.zoomLevel > 1) {
+            this.isDragging = true;
+            this.startX = e.clientX - this.translateX;
+            this.startY = e.clientY - this.translateY;
+        }
+    },
+    doDrag(e) {
+        if (this.isDragging) {
+            this.translateX = e.clientX - this.startX;
+            this.translateY = e.clientY - this.startY;
+        }
+    },
+    stopDrag() {
+        this.isDragging = false;
+    }
+}">
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-effect" id="navbar">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3">
+                <img src="foto/logoeastpriangan.png" alt="Logo EAST PRIANGAN" class="h-10 w-10 object-contain">
+                <span class="text-xl font-bold font-serif-display text-yellow-400">EAST PRIANGAN</span>
+            </a>
+            <nav class="hidden md:flex space-x-8 text-white">
+                <div x-data="{ open: false, timeout: null }" 
+                     @mouseover="clearTimeout(timeout); open = true" 
+                     @mouseleave="timeout = setTimeout(() => open = false, 300)" 
+                     class="relative">
+                    <a href="index.html" class="hover:text-yellow-400 transition flex items-center">
+                        Home
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </a>
+                    <div x-show="open"
+                         x-transition:enter="transition ease-out duration-200"
+                         x-transition:enter-start="opacity-0 transform -translate-y-2"
+                         x-transition:enter-end="opacity-100 transform translate-y-0"
+                         x-transition:leave="transition ease-in duration-150"
+                         x-transition:leave-start="opacity-100 transform translate-y-0"
+                         x-transition:leave-end="opacity-0 transform -translate-y-2"
+                         class="absolute left-0 mt-2 w-56 bg-gray-800 rounded-md shadow-lg z-10"
+                         style="display: none;">
+                        <a href="profile.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Profile East Priangan</a>
+                        <a href="management.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Strategi Management</a>
+                        <a href="index.html#contact" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Kontak Reservasi</a>
+                    </div>
+                </div>
+                <div x-data="{ open: false, timeout: null }" 
+                     @mouseover="clearTimeout(timeout); open = true" 
+                     @mouseleave="timeout = setTimeout(() => open = false, 300)" 
+                     class="relative">
+                    <a href="#" class="hover:text-yellow-400 transition flex items-center">
+                        Penginapan
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </a>
+                    <div x-show="open"
+                         x-transition:enter="transition ease-out duration-200"
+                         x-transition:enter-start="opacity-0 transform -translate-y-2"
+                         x-transition:enter-end="opacity-100 transform translate-y-0"
+                         x-transition:leave="transition ease-in duration-150"
+                         x-transition:leave-start="opacity-100 transform translate-y-0"
+                         x-transition:leave-end="opacity-0 transform -translate-y-2"
+                         class="absolute left-0 mt-2 w-56 bg-gray-800 rounded-md shadow-lg z-10"
+                         style="display: none;">
+                        <a href="hotel.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Hotel</a>
+                        <a href="bungalow.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Bungalow</a>
+                        <a href="villa.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Villa</a>
+                    </div>
+                </div>
+                <div x-data="{ open: false, timeout: null }" 
+                     @mouseover="clearTimeout(timeout); open = true" 
+                     @mouseleave="timeout = setTimeout(() => open = false, 300)" 
+                     class="relative">
+                    <a href="#" class="hover:text-yellow-400 transition flex items-center">
+                        Fasilitas
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </a>
+                    <div x-show="open"
+                         x-transition:enter="transition ease-out duration-200"
+                         x-transition:enter-start="opacity-0 transform -translate-y-2"
+                         x-transition:enter-end="opacity-100 transform translate-y-0"
+                         x-transition:leave="transition ease-in duration-150"
+                         x-transition:leave-start="opacity-100 transform translate-y-0"
+                         x-transition:leave-end="opacity-0 transform -translate-y-2"
+                         class="absolute left-0 mt-2 w-56 bg-gray-800 rounded-md shadow-lg z-10"
+                         style="display: none;">
+                        <a href="meeting-room.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Meeting Room</a>
+                        <a href="menu-dinner.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Menu Dinner</a>
+                        <a href="menu-alacarte.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Menu Alacarte</a>
+                    </div>
+                </div>
+                <a href="wisata.html" class="hover:text-yellow-400 transition">Wisata</a>
+                <a href="package.html" class="hover:text-yellow-400 transition">Package</a>
+            </nav>
+            <button @click="isMenuOpen = !isMenuOpen" class="md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <div x-show="isMenuOpen" class="md:hidden bg-gray-800">
+            <div x-data="{ open: false }">
+                <button @click="open = !open" class="w-full text-left block py-2 px-4 text-sm text-white hover:bg-gray-700 flex justify-between items-center">
+                    Home
+                    <svg class="w-4 h-4" :class="{'transform rotate-180': open}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div x-show="open" class="pl-4">
+                    <a href="profile.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Profile East Priangan</a>
+                    <a href="management.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Strategi Management</a>
+                    <a href="index.html#contact" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Kontak Reservasi</a>
+                </div>
+            </div>
+            <div x-data="{ open: false }">
+                <button @click="open = !open" class="w-full text-left block py-2 px-4 text-sm text-white hover:bg-gray-700 flex justify-between items-center">
+                    Penginapan
+                    <svg class="w-4 h-4" :class="{'transform rotate-180': open}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div x-show="open" class="pl-4">
+                    <a href="hotel.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Hotel</a>
+                    <a href="bungalow.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Bungalow</a>
+                    <a href="villa.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Villa</a>
+                </div>
+            </div>
+            <div x-data="{ open: false }">
+                <button @click="open = !open" class="w-full text-left block py-2 px-4 text-sm text-white hover:bg-gray-700 flex justify-between items-center">
+                    Fasilitas
+                    <svg class="w-4 h-4" :class="{'transform rotate-180': open}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div x-show="open" class="pl-4">
+                    <a href="meeting-room.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Meeting Room</a>
+                    <a href="menu-dinner.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Menu Dinner</a>
+                    <a href="menu-alacarte.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Menu Alacarte</a>
+                </div>
+            </div>
+            <a href="wisata.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Wisata</a>
+            <a href="package.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Package</a>
+        </div>
+    </header>
+
+    <main class="pt-24">
+        <section id="package-ksa" class="py-20">
+            <div class="container mx-auto px-6">
+                <h1 class="section-title font-serif-display font-bold text-center mb-4 text-white">Package Rate Pangandaran</h1>
+                <p class="section-subtitle text-center text-gray-400 mb-12 max-w-2xl mx-auto">Nikmati berbagai pilihan paket terbaik untuk momen spesial Anda. Didesain khusus untuk menghadirkan kenyamanan, kebersamaan, dan pengalaman tak terlupakan.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300" x-data="{ name: 'Publish Rate', image: 'Paket/paket pangandaran1.jpg' }">
+                        <img :src="image" :alt="name" class="w-full h-100 object-cover cursor-pointer" @click="modalImages = ['Paket/Travel.jpg']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Publish Rate'">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold font-serif-display mb-2 text-white">Package Rate</h3>
+                            <p class="text-justify text-gray-400 mb-4">🏖️ Liburan Asik di Pangandaran, Staycation Nyaman di East Priangan 🏖️</p>
+                            <p class="text-justify text-gray-400 mb-4">Nikmati view pantai, kolam renang, dan fasilitas premium.</p>
+                            <a href="http://wa.me/6288975876691" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Detail &rarr;</a>
+                        </div>
+                    </div>
+
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300" x-data="{ name: 'Publish Rate', image: 'Paket/package school1.jpg' }">
+                        <img :src="image" :alt="name" class="w-full h-100 object-cover cursor-pointer" @click="modalImages = ['Paket/package school.jpg']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Package School'">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold font-serif-display mb-2 text-white">Package School</h3>
+                            <p class="text-justify text-gray-400 mb-4">👩‍🏫👨‍🎓 Belajar, Bermain, dan Berpetualang! Nikmati keseruan belajar sambil berlibur dengan paket lengkap: penginapan nyaman, makan bersama, body rafting, dan seru-seruan di pantai!🏖️🌊🌞</p>
+                            <a href="http://wa.me/6288975876691" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Detail &rarr;</a>
+                        </div>
+                    </div>
+
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300" x-data="{ name: 'Family Gathering', image: 'Paket/package family gethering1.jpg' }">
+                        <img :src="image" :alt="name" class="w-full h-100 object-cover cursor-pointer" @click="modalImages = ['Paket/package family gethering.jpg']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Family Gathering'">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold font-serif-display mb-2 text-white">Package Family Gethering</h3>
+                            <p class="text-justify text-gray-400 mb-4">💛Kebersamaan yang Tak Terlupakan💛 Ciptakan momen spesial bersama keluarga dengan liburan seru di pinggir pantai. Mulai pagi dengan sarapan, seru-seruan body rafting, hingga makan malam buffet yang mewah ✨. Semua sudah lengkap untuk pengalaman Family Gathering terbaik! 🎉</p>
+                            <a href="http://wa.me/6288975876691" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Detail &rarr;</a>
+                        </div>
+                    </div>
+
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300" x-data="{ name: 'Package Meeting', image: 'Paket/package meeting1.jpg' }">
+                        <img :src="image" :alt="name" class="w-full h-100 object-cover cursor-pointer" @click="modalImages = ['Paket/package meeting.jpg']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Package  Meeting'">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold font-serif-display mb-2 text-white">💼 Pangandaran Package Meeting ✨</h3>
+                            <p class="text-justify text-gray-400 mb-4">Tempat terbaik untuk mengadakan rapat, seminar, maupun gathering bisnis dengan suasana nyaman dan strategis di pinggir pantai. ✨ Rapat lebih produktif, suasana lebih menyenangkan hanya di Pangandaran!</p>
+                            <a href="http://wa.me/6288975876691" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Detail &rarr;</a>
+                        </div>
+                    </div>
+            </div>
+        </section>
+    </main>
+
+    <main class="pt-24">
+        <section id="package-ksa" class="py-20">
+            <div class="container mx-auto px-6">
+                <h1 class="section-title font-serif-display font-bold text-center mb-4 text-white">Package Rate Garut</h1>
+                <p class="section-subtitle text-center text-gray-400 mb-12 max-w-2xl mx-auto">Nikmati berbagai pilihan paket terbaik untuk momen spesial Anda. Didesain khusus untuk menghadirkan kenyamanan, kebersamaan, dan pengalaman tak terlupakan.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300" x-data="{ name: 'Package Family Gathering', image: 'Paket/Paket KSA_page-0003.1.jpg' }">
+                        <img :src="image" :alt="name" class="w-full h-100 object-cover cursor-pointer" @click="modalImages = ['Paket/Paket KSA_page-0003.jpg']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Package Family Gathering'">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold font-serif-display mb-2 text-white">Package Family Gathering</h3>
+                            <p class="text-justify text-gray-400 mb-4">👨‍👩‍👧‍👦 Family Gathering di Sumber Alam Resort Garut 🌿</p>
+                            <p class="text-justify text-gray-400 mb-4">Bersama lebih erat, beraktivitas lebih seru! ✨Nikmati kebersamaan keluarga, kerabat, maupun rekan kerja dengan suasana alam yang asri dan fasilitas lengkap.</p>
+                            <a href="http://wa.me/6288975876691" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Detail &rarr;</a>
+                        </div>
+                    </div>
+
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300" x-data="{ name: 'Package Non Residential Meeting', image: 'Paket/Paket KSA_page-0004.1.jpg' }">
+                        <img :src="image" :alt="name" class="w-full h-100 object-cover cursor-pointer" @click="modalImages = ['Paket/Paket KSA_page-0004.jpg']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Package Non Residential Meeting'">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold font-serif-display mb-2 text-white">Package Non Residential Meeting</h3>
+                            <p class="text-justify text-gray-400 mb-4">💼 Paket Non Residential Meeting di Sumber Alam Resort Garut 🌿</p>
+                            <p class="text-justify text-gray-400 mb-4">"Ciptakan rapat yang produktif & inspiratif di tengah kesejukan alam. Nikmati fasilitas lengkap untuk kenyamanan dan kelancaran acara Anda. ✨ Cocok untuk rapat bisnis, seminar, maupun workshop – suasana nyaman, hasil maksimal."</p>
+                            <a href="http://wa.me/6288975876691" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Detail &rarr;</a>
+                        </div>
+                    </div>
+
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300" x-data="{ name: 'Package FullBoard Meeting', image: 'Paket/Paket KSA_page-0005.1.jpg' }">
+                        <img :src="image" :alt="name" class="w-full h-100 object-cover cursor-pointer" @click="modalImages = ['Paket/Paket KSA_page-0005.jpg']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Package FullBoard Meeting'">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold font-serif-display mb-2 text-white">Package FullBoard Meeting</h3>
+                            <p class="text-justify text-gray-400 mb-4">🌿 Fullboard Meeting di Sumber Alam Resort Garut 💼</p>
+                            <p class="text-justify text-gray-400 mb-4">Agendakan pertemuan bisnis Anda di tengah ketenangan alam yang asri dan nyaman. Nikmati fasilitas lengkap untuk mendukung produktivitas. ✨ Suasana tenang, pelayanan prima, hasil meeting lebih maksimal!</p>
+                            <a href="http://wa.me/6288975876691" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Detail &rarr;</a>
+                        </div>
+                    </div>
+
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300" x-data="{ name: 'Package Wedding & Honeymoon', image: 'Paket/Paket KSA_page-0002.1.jpg' }">
+                        <img :src="image" :alt="name" class="w-full h-45 object-cover cursor-pointer" @click="modalImages = ['Paket/Paket KSA_page-0002.jpg']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Package Wedding & Honeymoon'">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold font-serif-display mb-2 text-white">Package Wedding & Honeymoon</h3>
+                            <p class="text-justify text-gray-400 mb-4">✨ Wujudkan momen terindah dalam hidup Anda bersama Sumber Alam Resort Garut ✨</p>
+                            <p class="text-justify text-gray-400 mb-4">💍 Dari paket Wedding yang megah & berkesan, hingga paket Honeymoon romantis lengkap dengan candle light dinner, spa couple, dan fasilitas eksklusif.🌹 Hadirkan kenangan abadi, hanya di Sumber Alam – tempat terbaik merayakan cinta & kebahagiaan.</p>
+                            <a href="http://wa.me/6288975876691" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Detail &rarr;</a>
+                        </div>
+                    </div>
+
+                    <div class="card-bg rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300" x-data="{ name: 'Package Tirta Alam 2 Garut', image: 'Paket/hotel tirta alam 2.1.jpg' }">
+                        <img :src="image" :alt="name" class="w-full h-45 object-cover cursor-pointer" @click="modalImages = ['Paket/hotel tirta alam 2.jpg']; modalImage = modalImages[0]; currentImageIndex = 0; modalTitle='Package Tirta Alam 2 Garut'">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold font-serif-display mb-2 text-white">Package Tirta Alam 2 Garut</h3>
+                            <p class="text-justify text-gray-400 mb-4">Hotel Tirta Alam Cipanas Garut merupakan salah satu penginapan yang cocok untuk menikmati keindahan alam Garut yang menawan.</p>
+                            <a href="http://wa.me/6288975876691" target="_blank" class="text-yellow-400 hover:text-yellow-300 font-semibold">Info Detail &rarr;</a>
+                        </div>
+                    </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Image Modal -->
+    <div x-show="modalImage" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4" style="display: none;">
+        <div @click.away="modalImage = ''; modalImages = []; resetZoom()" class="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-full overflow-hidden relative">
+            <div class="p-4 border-b flex justify-between items-center">
+                <h3 class="text-xl font-bold text-gray-800" x-text="modalTitle"></h3>
+                <div class="flex items-center space-x-2">
+                    <!-- Zoom Controls -->
+                    <button @click="zoomOut()" class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-2 px-3 rounded">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/>
+                        </svg>
+                    </button>
+                    <button @click="zoomIn()" class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-2 px-3 rounded">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                        </svg>
+                    </button>
+                    <button @click="resetZoom()" class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-2 px-3 rounded text-sm">Reset</button>
+                    <button @click="modalImage = ''; modalImages = []; resetZoom()" class="text-gray-500 hover:text-gray-800 ml-2">&times;</button>
+                </div>
+            </div>
+            <div class="p-4 relative overflow-auto" style="max-height: 85vh;">
+                <div class="flex items-center justify-center">
+                    <img :src="modalImage" 
+                         alt="Detail Gambar" 
+                         class="rounded-md cursor-move transition-transform duration-150 max-w-full h-auto object-contain"
+                         :style="'transform: scale(' + zoomLevel + ') translate(' + translateX/zoomLevel + 'px, ' + translateY/zoomLevel + 'px)'"
+                         @mousedown="startDrag"
+                         @mousemove="doDrag"
+                         @mouseup="stopDrag"
+                         @mouseleave="stopDrag"
+                         draggable="false">
+                
+                <!-- Navigation Buttons (only show if there are multiple images) -->
+                <template x-if="modalImages.length > 1">
+                    <div class="absolute inset-y-0 left-0 right-0 flex justify-between items-center px-4">
+                        <button @click="prevImage()" class="bg-black bg-opacity-50 text-white rounded-full p-2 hover:bg-opacity-75 transition-opacity">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                            </svg>
+                        </button>
+                        <button @click="nextImage()" class="bg-black bg-opacity-50 text-white rounded-full p-2 hover:bg-opacity-75 transition-opacity">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </div>
+                </template>
+                
+                <!-- Image Counter -->
+                <template x-if="modalImages.length > 1">
+                    <div class="absolute bottom-6 left-0 right-0 text-center">
+                        <span class="bg-black bg-opacity-50 text-white px-2 py-1 rounded-full text-sm">
+                            <span x-text="currentImageIndex + 1"></span>/<span x-text="modalImages.length"></span>
+                        </span>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-700 py-8">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="https://www.instagram.com/leniwiraatmadja/" target="_blank" class="text-gray-400 hover:text-yellow-400 transition">
+                    <img src="foto/logofacebook.jpg" alt="Facebook" class="w-6 h-6">
+                </a>
+                <a href="https://www.instagram.com/leniwiraatmadja/" target="_blank" class="text-gray-400 hover:text-yellow-400 transition">
+                    <img src="foto/logoinstagram.jpg" alt="Instagram" class="w-6 h-6">
+                </a>
+            </div>
+            <p class="text-yellow-400">&copy; <span id="year"></span> EAST PRIANGAN. All Rights Reserved.</p>
+            <p class="text-sm mt-2">Design By NA-78</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

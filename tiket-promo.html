@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiket & Promo Spesial - EAST PRIANGAN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="icon" href="foto/logoeastpriangan.png" type="image/png">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #111827; color: #F3F4F6; }
+        .font-serif-display { font-family: 'Playfair Display', serif; }
+        .glass-effect { background: rgba(31, 41, 55, 0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .section-title { font-size: 2.25rem; line-height: 2.5rem; }
+        @media (min-width: 768px) { .section-title { font-size: 3rem; line-height: 1; } }
+        .section-subtitle { font-size: 1.125rem; line-height: 1.75rem; }
+        .promo-card { background-color: #1F2937; }
+    </style>
+</head>
+<body x-data="{ isMenuOpen: false }">
+
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-effect" id="navbar">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3">
+                <img src="foto/logoeastpriangan.png" alt="Logo EAST PRIANGAN" class="h-10 w-10 object-contain">
+                <span class="text-xl font-bold font-serif-display text-yellow-400">EAST PRIANGAN</span>
+            </a>
+            <nav class="hidden md:flex space-x-8 text-white">
+                <div x-data="{ open: false, timeout: null }" @mouseover="clearTimeout(timeout); open = true" @mouseleave="timeout = setTimeout(() => open = false, 300)" class="relative">
+                    <a href="index.html" class="hover:text-yellow-400 transition flex items-center">
+                        Home
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </a>
+                    <div x-show="open" class="absolute left-0 mt-2 w-56 bg-gray-800 rounded-md shadow-lg z-10" style="display: none;">
+                        <a href="profile.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Profile East Priangan</a>
+                        <a href="management.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Strategi Management</a>
+                        <a href="index.html#contact" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Kontak Reservasi</a>
+                    </div>
+                </div>
+                <div x-data="{ open: false, timeout: null }" @mouseover="clearTimeout(timeout); open = true" @mouseleave="timeout = setTimeout(() => open = false, 300)" class="relative">
+                    <a href="#" class="hover:text-yellow-400 transition flex items-center">
+                        Penginapan
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </a>
+                    <div x-show="open" class="absolute left-0 mt-2 w-56 bg-gray-800 rounded-md shadow-lg z-10" style="display: none;">
+                        <a href="hotel.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Hotel</a>
+                        <a href="bungalow.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Bungalow</a>
+                        <a href="villa.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Villa</a>
+                    </div>
+                </div>
+                <div x-data="{ open: false, timeout: null }" 
+                     @mouseover="clearTimeout(timeout); open = true" 
+                     @mouseleave="timeout = setTimeout(() => open = false, 300)" 
+                     class="relative">
+                    <a href="#" class="hover:text-yellow-400 transition flex items-center">
+                        Fasilitas
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </a>
+                    <div x-show="open"
+                         x-transition:enter="transition ease-out duration-200"
+                         x-transition:enter-start="opacity-0 transform -translate-y-2"
+                         x-transition:enter-end="opacity-100 transform translate-y-0"
+                         x-transition:leave="transition ease-in duration-150"
+                         x-transition:leave-start="opacity-100 transform translate-y-0"
+                         x-transition:leave-end="opacity-0 transform -translate-y-2"
+                         class="absolute left-0 mt-2 w-56 bg-gray-800 rounded-md shadow-lg z-10"
+                         style="display: none;">
+                        <a href="meeting-room.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Meeting Room</a>
+                        <a href="menu-dinner.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Menu Dinner</a>
+                        <a href="menu-alacarte.html" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Menu Alacarte</a>
+                    </div>
+                </div>
+                <a href="wisata.html" class="hover:text-yellow-400 transition">Wisata</a>
+                <a href="package.html" class="hover:text-yellow-400 transition">Package</a>
+            </nav>
+            <button @click="isMenuOpen = !isMenuOpen" class="md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <div x-show="isMenuOpen" class="md:hidden bg-gray-800">
+            <div x-data="{ open: false }">
+                <button @click="open = !open" class="w-full text-left block py-2 px-4 text-sm text-white hover:bg-gray-700 flex justify-between items-center">
+                    Home
+                    <svg class="w-4 h-4" :class="{'transform rotate-180': open}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div x-show="open" class="pl-4">
+                    <a href="profile.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Profile East Priangan</a>
+                    <a href="management.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Strategi Management</a>
+                    <a href="index.html#contact" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Kontak Reservasi</a>
+                </div>
+            </div>
+            <div x-data="{ open: false }">
+                <button @click="open = !open" class="w-full text-left block py-2 px-4 text-sm text-white hover:bg-gray-700 flex justify-between items-center">
+                    Penginapan
+                    <svg class="w-4 h-4" :class="{'transform rotate-180': open}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div x-show="open" class="pl-4">
+                    <a href="hotel.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Hotel</a>
+                    <a href="bungalow.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Bungalow</a>
+                    <a href="villa.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Villa</a>
+                </div>
+            </div>
+            <div x-data="{ open: false }">
+                <button @click="open = !open" class="w-full text-left block py-2 px-4 text-sm text-white hover:bg-gray-700 flex justify-between items-center">
+                    Fasilitas
+                    <svg class="w-4 h-4" :class="{'transform rotate-180': open}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div x-show="open" class="pl-4">
+                    <a href="meeting-room.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Meeting Room</a>
+                    <a href="menu-dinner.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Menu Dinner</a>
+                    <a href="menu-alacarte.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Menu Alacarte</a>
+                </div>
+            </div>
+            <a href="wisata.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Wisata</a>
+            <a href="package.html" @click="isMenuOpen = false" class="block py-2 px-4 text-sm text-white hover:bg-gray-700">Package</a>
+        </div>
+    </header>
+
+    <main class="pt-24">
+        <section id="promo-list" class="py-20">
+            <div class="container mx-auto px-6">
+                <h1 class="section-title font-serif-display font-bold text-center mb-4 text-white">Informasi Tiket & Promo</h1>
+                <p class="section-subtitle text-center text-gray-400 mb-12 max-w-3xl mx-auto">Berikut adalah rincian harga tiket masuk ke berbagai objek wisata di Pangandaran dan sekitarnya, serta informasi sewa dan promo menarik.</p>
+
+                <div class="max-w-4xl mx-auto space-y-8">
+                    <!-- Tiket Masuk Pangandaran -->
+                    <div class="promo-card rounded-lg overflow-hidden shadow-lg p-6 md:p-8">
+                        <h3 class="text-2xl font-bold font-serif-display text-white mb-4">Tiket Masuk Objek Wisata Pangandaran</h3>
+                        <p class="text-gray-400 mb-4">Sesuai Perda No. 08 Tahun 2023, tarif tiket masuk per 5 Januari 2024 dihitung perorangan, bukan per kendaraan.</p>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2 mb-4">
+                            <li>Pantai Pangandaran + Batu Hiu: <span class="font-semibold text-white">Rp 20.000 / orang</span></li>
+                            <li>Pantai Batukaras + Pantai Madasari: <span class="font-semibold text-white">Rp 15.000 / orang</span></li>
+                            <li>Green Canyon: <span class="font-semibold text-white">Rp 10.000 / orang</span></li>
+                            <li>Pantai Karapyak: <span class="font-semibold text-white">Rp 6.000 / orang</span></li>
+                        </ul>
+                        <div class="mt-4 border-t border-gray-700 pt-4 space-y-2">
+                            <a href="hotel.html" class="text-yellow-400 hover:text-yellow-300 font-semibold">Promo Homestay Pangandaran Mulai 400rb/malam &rarr; Klik di sini</a>
+                        </div>
+                        <div class="mt-4 border-t border-gray-700 pt-4 space-y-2">
+                            <a href="package.html" class="text-yellow-400 hover:text-yellow-300 font-semibold">Body Rafting Citumang Mulai 69 Ribu &rarr; Klik di sini</a>
+                        </div>
+                    </div>
+
+                    <!-- Tiket Cagar Alam -->
+                    <div class="promo-card rounded-lg overflow-hidden shadow-lg p-6 md:p-8">
+                        <h3 class="text-2xl font-bold font-serif-display text-white mb-4">Tiket Masuk Taman Wisata Cagar Alam</h3>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2">
+                            <li>Wisatawan Mancanegara: <span class="font-semibold text-white">Rp 210.000 (Weekday) / Rp 310.000 (Weekend)</span></li>
+                            <li>Wisatawan Domestik: <span class="font-semibold text-white">Rp 16.000 (Weekday) / Rp 21.000 (Weekend)</span></li>
+                            <li>Sewa Senter: <span class="font-semibold text-white">Rp 10.000 / senter</span></li>
+                        </ul>
+                        <div class="mt-4 border-t border-gray-700 pt-4">
+                             <a href="package.html" class="text-yellow-400 hover:text-yellow-300 font-semibold">Dapatkan paket wisata Green Canyon, Batu Hiu, dan Cagar Alam dalam sehari &rarr; Di Sini</a>
+                        </div>
+                    </div>
+
+                    <!-- Tiket Green Canyon -->
+                    <div class="promo-card rounded-lg overflow-hidden shadow-lg p-6 md:p-8">
+                        <h3 class="text-2xl font-bold font-serif-display text-white mb-4">Tiket Masuk Objek Wisata Green Canyon</h3>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2">
+                            <li>Retribusi Wisata: <span class="font-semibold text-white">Rp 10.000 / orang</span></li>
+                            <li>Sewa Perahu: <span class="font-semibold text-white">Rp 175.000 / perahu (maks. 6 orang)</span></li>
+                            <li>Berenang (dari perahu): <span class="font-semibold text-white">Rp 100.000 (durasi 30 menit)</span></li>
+                        </ul>
+                         <div class="mt-4 border-t border-gray-700 pt-4">
+                             <a href="package.html" class="text-yellow-400 hover:text-yellow-300 font-semibold">Jelajahi eksotisme Green Canyon dengan paket Body Rafting &rarr; Di Sini</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Tiket Citumang -->
+                    <div class="promo-card rounded-lg overflow-hidden shadow-lg p-6 md:p-8">
+                        <h3 class="text-2xl font-bold font-serif-display text-white mb-4">Tiket Masuk Objek Wisata Citumang</h3>
+                        <p class="text-gray-400 mb-4">Jam Buka: 07.00 - 17.00 WIB</p>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2">
+                            <li>Tiket Masuk Weekday: <span class="font-semibold text-white">Rp 19.000 / orang</span></li>
+                            <li>Tiket Masuk Weekend: <span class="font-semibold text-white">Rp 24.000 / orang</span></li>
+                            <li>Body Rafting: <span class="font-semibold text-white">Mulai dari Rp 69.000 / orang</span></li>
+                        </ul>
+                        <div class="mt-4 border-t border-gray-700 pt-4 bg-yellow-500/10 p-4 rounded-lg">
+                            <p class="font-bold text-yellow-300">PROMO SPESIAL ONLY 69k!!</p>
+                            <p class="text-white">Paket body rafting objek wisata Citumang murah. Hubungi WA: <a href="http://wa.me/6288975876691" target="_blank" class="underline">Di Sini</a>.</p>
+                        </div>
+                    </div>
+
+                    <!-- Jasa Penyewaan -->
+                    <div class="promo-card rounded-lg overflow-hidden shadow-lg p-6 md:p-8">
+                        <h3 class="text-2xl font-bold font-serif-display text-white mb-4">Jasa Penyewaan di Objek Wisata Pangandaran</h3>
+                        <p class="text-gray-500 text-sm mb-4">*Harga sewa dapat bervariasi tergantung penyedia jasa.</p>
+                        <ul class="list-disc list-inside text-gray-300 space-y-2">
+                            <li>Sewa Perahu Pesiar: <span class="font-semibold text-white">Rp 25.000 - Rp 50.000</span></li>
+                            <li>Sewa Sepeda Motor: <span class="font-semibold text-white">Rp 100.000 - Rp 150.000</span></li>
+                            <li>Sewa Odong-odong/Mobil Gowes: <span class="font-semibold text-white">Rp 75.000</span></li>
+                            <li>Sewa Sepeda ATV: <span class="font-semibold text-white">Mulai dari Rp 50.000</span> <a href="wisata.html" class="text-yellow-400 text-sm hover:underline">(Selengkapnya)</a></li>
+                            <li>Sewa Banana Boat: <span class="font-semibold text-white">Mulai dari Rp 50.000</span> <a href="wisata.html" class="text-yellow-400 text-sm hover:underline">(Selengkapnya)</a></li>
+                            <li>Snorkling: <span class="font-semibold text-white">Rp 75.000</span> <a href="wisata.html" class="text-yellow-400 text-sm hover:underline">(Selengkapnya)</a></li>
+                            <li>Jetski: <span class="font-semibold text-white">Rp 350.000 / 15 Menit</span> <a href="wisata.html" class="text-yellow-400 text-sm hover:underline">(Selengkapnya)</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+     <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-700 py-8">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="https://www.instagram.com/leniwiraatmadja/" target="_blank" class="text-gray-400 hover:text-yellow-400 transition">
+                    <img src="foto/logofacebook.jpg" alt="Facebook" class="w-6 h-6">
+                </a>
+                <a href="https://www.instagram.com/leniwiraatmadja/" target="_blank" class="text-gray-400 hover:text-yellow-400 transition">
+                    <img src="foto/logoinstagram.jpg" alt="Instagram" class="w-6 h-6">
+                </a>
+            </div>
+            <p class="text-yellow-400">&copy; <span id="year"></span> EAST PRIANGAN. All Rights Reserved.</p>
+            <p class="text-sm mt-2">Design By NA-78</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+
+</body>
+</html>
